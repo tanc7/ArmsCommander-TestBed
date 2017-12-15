@@ -1,3 +1,5 @@
+<html>
+
 [Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]
 
 Update on December 14th.
@@ -6,7 +8,17 @@ I already managed to achieve it. It's quite sloppy and it is ugly though. A full
 
 I need to look into the matter more, since now I know how to redirect the values and execution in the routersploit.exploits.Exploit Class, as shown by the alert.log file.
 
-But the fact that Routersploit automatically gets caught up in the standard Debian logs is alarming. 
+But the fact that Routersploit automatically gets caught up in the standard Debian logs is alarming.
+<br><br>
+								**[Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
+								/var/log/user.log:63628:Dec 23 16:25:39 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
+								/var/log/user.log:63632:Dec 23 17:02:22 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
+								/var/log/user.log:63633:Dec 23 17:02:22 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)]**
+
+<br><br>
+Meanwhile I am trying to create a duplicate pipe to allow viewing of the standard routerpsloit shell. However I came across several realizations, one there wont be any output on that shell because this is completely automated and therefore no data was entered into the default shell, two, there really is no need for entry of text, three, I already resolved the issue of the module import problems for integrating with routersploit, you are required to manually append both routersploit folders from the official repo to allow your custom autopwn module to work.
+
+
 
 After action report, Wednesday, December 13th, 2017.
 
@@ -147,3 +159,4 @@ But assuming that all goes well, I may personally vet for the script or program 
 C.T. Lister
 Lister Unlimited Cybersecurity Solutions, LLC.
 9:55pm, November 13th.
+</html>
