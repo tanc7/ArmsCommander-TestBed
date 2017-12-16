@@ -4,9 +4,9 @@
 
 Dear loyal users of LULLC products such as ArmsCommander and Cylon-Raider. Be sure to anticipate a major update coming soon when our research completes. Currently the results that we have reviewed over in our various penetration testing projects point to that...
 
-#	**We need to make better use of *nix daemons. Particularly, the service-daemon type.**
+#	We need to make better use of nix daemons. Particularly, the service-daemon type.
 
-A lot of people may disagree with me on this statement. Particularly because we are not creating a ordinary UNIX daemon, **our daemon is designed for pentests and therefore is "malignant by design"**. Some people may claim this is extremely dangerous. But I will assure you, that outside of the scope of their assigned tasks, they are completely confined to performing what they were told to do and only that, very very well. They are bound to extremely confining chroot and permissions policies and cannot be told to diverge from their programming.
+A lot of people may disagree with me on this statement. Particularly because we are not creating a ordinary UNIX daemon, our daemon is designed for pentests and therefore is "malignant by design". Some people may claim this is extremely dangerous. But I will assure you, that outside of the scope of their assigned tasks, they are completely confined to performing what they were told to do and only that, very very well. They are bound to extremely confining chroot and permissions policies and cannot be told to diverge from their programming.
 
 In order to incorporate features such as integration with a Raspberry Pi and fully automatic post-exploitation of cracked passwords....
 
@@ -24,14 +24,14 @@ They are however, going to be 100% entirely independent and will be composed of 
 
 Another proposition is to instead, split the daemon into multiple, independent, self-aware components. Our daemons often require the traversal of multiple directories, for example,
 
-						\* \*to detect, copy and convert all of the .cap capture files on hard disk partition /dev/sda7 into another mounted partition on /dev/sdd2 and then convert the files to .hccapx format, crack the hashes, add the hashes to the potfile, extract the cracked hashes out of the potfile and generate a wpa_supplicant.conf file for each cracked BSSID, auto-load it into the /etc/wpa_supplicant directory of every compatible device (penetration testing device) that logs into our local wireless LAN*\ *\
+						\*to detect, copy and convert all of the .cap capture files on hard disk partition /dev/sda7 into another mounted partition on /dev/sdd2 and then convert the files to .hccapx format, crack the hashes, add the hashes to the potfile, extract the cracked hashes out of the potfile and generate a wpa_supplicant.conf file for each cracked BSSID, auto-load it into the /etc/wpa_supplicant directory of every compatible device (penetration testing device) that logs into our local wireless LAN*\
 
 From that, this daemon service will have several components.
 
 			\* 1. A service daemon that manages a single drop-off folder for newly captured password hashes. Like /root/Documents/captured_WPA_hashes
 			2. A hashcat manager daemon that will automatically rotate and delete cracked hashes while adding new hashes to the queue in /root/ArmsCommander/logs/HashCat
 			3. A potfile manager daemon that will scan the potfile in /root/.hashcat/hashcat.potfile, find any new hashes, and write a wpa_supplicant.conf string into a master file.
-			4. A wpa_supplicant editor daemon that will scan the /etc/wpa_supplicant/wpa_supplicant.conf file of every registered penetration device that connected, and then compare the cloned wpa_supplicant.conf, and make the necessary appendings and or additions to keep the visitor's wpa_supplicant.conf updated with new autologin c redentials. *\
+			4. A wpa_supplicant editor daemon that will scan the /etc/wpa_supplicant/wpa_supplicant.conf file of every registered penetration device that connected, and then compare the cloned wpa_supplicant.conf, and make the necessary appendings and or additions to keep the visitor's wpa_supplicant.conf updated with new autologin c redentials. \*
 
 Since these services operate independently from each other, then the UNIX service daemon will actually become a manager type of daemon that issues orders to multiple, independent subdaemon minions. The subdaemons are autonomous and it MAY BE possible to give certain orders to them to perform dangerous commands, but the likelihood of that requires the full discovery, compromise, and exploitation of both the manager daemon service and the subdaemon's source code while it's running. IT's kind of hard to mess with a background processes's code while it's running on Python. They would have to parse through thousands of lines of binary and intercept and alter the instructions that the service daemon is issuing to them but also have to reprogram the subdaemon's response to the task.
 
@@ -39,16 +39,18 @@ Since these services operate independently from each other, then the UNIX servic
 
 The Wi-Fi Pentest Daemon will have several services
 
-			1. A network interface daemon that will manage the wireless interfaces and run network discovery tools in the background. The NIC Daemon also reconnects the attacking device in the event that we lose connection, like hitting a firewall rule or bad signal.
+
+		\*1. A network interface daemon that will manage the wireless interfaces and run network discovery tools in the background. The NIC Daemon also reconnects the attacking device in the event that we lose connection, like hitting a firewall rule or bad signal.
 			2. A Routersploit Back-End Daemon that utilizes the discovery I made about interface with the routersploit.routersploit.exploits.Exploit(args) class and directly change the target, port, threads parameters, and re-launch the autopwn module. The value of the target IP and port is constantly being updated and fed to them by the Network Interface Daemon and the Scanner Daemon
 			3. A scanner daemon that runs services such as DotDotPwn directory traversal scanner, nmap scripts, Metasploit discovery tools,
-			4. A Auth Daemon that tries passwords and attempts to brute-force newly discovered deviuces, networks, and ports discovered by the Scanner Daemon.
+			4. A Auth Daemon that tries passwords and attempts to brute-force newly discovered deviuces, networks, and ports discovered by the Scanner Daemon.*\
+
 
 	A lot of our services are based on the standard tty console. We are considering using Pyrasite Terminals to interface with that to create a more transparent method to manipulate data in the backenmd while our attacks are starting off.
 
 # What a attacker COULD DO to a LULLC Daemon.
 
-It would be better for the attacker ***to spawn his own daemon services*** as soon as he acquires root access. Since the daemons would **very likely, not be aware of one another, and we as the user are not aware of their purposes because they are daemons. They do not have STDIN,STDERR, or STDOUT outputs**. They do not report to anyone. And outside of what they are designed to do and the chroot they are confined to, they have no power outside of their realms.
+It would be better for the attacker to spawn his own daemon servicee as soon as he acquires root access. Since the daemons would very likely, not be aware of one another, and we as the user are not aware of their purposes because they are daemons. They do not have STDIN,STDERR, or STDOUT outputs. They do not report to anyone. And outside of what they are designed to do and the chroot they are confined to, they have no power outside of their realms.
 
 The only anomalies would be ifn a daemon malfunctioned because the attacker's daemons moved or relocated a directory needed for their main tasks. Or changed the permissions of a directory, causing our service daemon to crash.
 
@@ -56,26 +58,26 @@ The only anomalies would be ifn a daemon malfunctioned because the attacker's da
 
 We are basing this on the design of the python-daemon package available on PIP.
 
-*The RPi Custom Routersploit Daemon is a single service manager in charge of dozens of subdaemons/bots. They are all derived from the same daemons.DaemonContext.(profile) class. Of my design.
+The RPi Custom Routersploit Daemon is a single service manager in charge of dozens of subdaemons/bots. They are all derived from the same daemons.DaemonContext.(profile) class. Of my design.
 
 The Daemon Class in its entirely is composed of a SINGLE Master Service Daemon. But this master Daemon manages subdaemons/bots that perform it's tasks and is defined as modules/functions/instances of a class.
 
-So... lets say the NIC daemon if it was named NIC_subdaemon = process then it would have a method represented as a function for each task it does.*
+So... lets say the NIC daemon if it was named NIC_subdaemon = process then it would have a method represented as a function for each task it does.
 
-**NIC_subdaemon module:**
-\* *\def method_switch_MAC_addr(interface):
-*\def run(): does the default method.
-*\def stop():
--*\sys.exit('Ordered to stop')
-*\def get_gw_ip(): does what its told and gets gateway IP, open port, and forwards this to my routersploit daemon to be used.
-*\def daemonize(): *\
-	Does all of the "cool shit"...
+NIC_subdaemon module:
+\*def method_switch_MAC_addr(interface):
+def run(): does the default method.
+def stop():
+sys.exit('Ordered to stop')
+def get_gw_ip(): does what its told and gets gateway IP, open port, and forwards this to my routersploit daemon to be used.
+def daemonize():
+	Does all of the "cool shit"...*\
 
 so python NIC_subdaemon.py and then NIC_subdaemon.stop() and NIC_subdaemon.get_gw_ip(). All the lame boring stuff.
 
 When that's done, I am going to daemonize this process to make him run autonomously in background
 
-[u]**NIC_subdaemon.daemonize()**[/u] Begins the satanic ritual that turns him into a daemon.
+[u]NIC_subdaemon.daemonize()[/u] Begins the satanic ritual that turns him into a daemon.
 
 \* NIC_subdaemon.daemonize():
 		os.chdir('/root/daemons_be_here')
@@ -84,17 +86,17 @@ When that's done, I am going to daemonize this process to make him run autonomou
 		dir_path = os.path.dirname(os.path.realpath(original_dir))
 		generate_daemon_NIC(daemon.DaemonContext, original_file_myself)
 		return *\
-**We need to have a function that tells us what to do**
+We need to have a function that tells us what to do
 
 
-**Then we need to add a class to generate a daemon, probably in a different file or module**
+Then we need to add a class to generate a daemon, probably in a different file or module
 
 ############################################################################
-\* \* def generate_daemon_NIC(daemon_class_dir, process_instructions):
+\* def generate_daemon_NIC(daemon_class_dir, process_instructions):
 						sys.path.append(daemon_class_dir)
 						from daemon_class_dir import daemon
-						from daemon import *
-						from daemon.DaemonContext import *
+						from daemon import
+						from daemon.DaemonContext import
 
 						MyLovelyDaemon = __daemon_module__.daemon.DaemonContext(NIC_subdaemon)
 						MyLovelyDaemon.open()
@@ -102,12 +104,12 @@ When that's done, I am going to daemonize this process to make him run autonomou
 
 
 						// Off he goes to do something!
-						return MyLovelyDaemon *\ *\
+						return MyLovelyDaemon *\
 
 
 ##############################################################################
 
-\* \*def Class DaemonContext(self): // standard template
+\*def Class DaemonContext(self): // standard template
 
 				def __daemon_name__ = __module__.daemon.DaemonContext(__init__): // This part defines the traits of all of the daemons
 
@@ -126,14 +128,14 @@ When that's done, I am going to daemonize this process to make him run autonomou
 
 							__daemon_name__.umask = '755'
 							__daemon_name__.pidfile = '/var/run/__daemon_name__.pidfile'
-							__daemon_name__.uid = os.getuid() + 104-72 * 5
+							__daemon_name__.uid = os.getuid() + 104-72  5
 							__daemon_name__.gid = os.getgid() + 104+72 / 5
 							__daemon_name__.preventcore = True
 							__daemon_name__.initgroups = True
 							__daemon_name__.stdin = '/dev/null'
 							__daemon_name__.stdout = '/dev/null'
 							__daemon_name__.stderr = '/dev/null'
-\* *\
+*\
 ##################################################################################################################
 # My vision of the primary Daemon class.
 
@@ -166,13 +168,13 @@ def wireless_pentest.daemon.DaemonContext(Auth_subdaemon) *\
 							NIC_subdaemon.stderr = '/dev/null' *\
 
 
-**if I wante dto make me a network interface daemon right now.... quickn and easy....**
+if I wante dto make me a network interface daemon right now.... quickn and easy....
 
 
-\* NIC_subdaemon = wireless_pentest.daemon.DaemonContext(__init__) // better yet, make one specifically for NIC subdaemon.
-NIC_subdaemon.open() *\
-\*
-// **Powers up the daemon. Right there.**
+\*NIC_subdaemon = wireless_pentest.daemon.DaemonContext(__init__) // better yet, make one specifically for NIC subdaemon.
+NIC_subdaemon.open()
+
+// Powers up the daemon. Right there.
 def config_daemon(NIC_subdaemon, desired_uid, desired_gid):
 		try:
 			new_uid = desired_uid
@@ -202,14 +204,14 @@ daemon.pwd.getpwall()
 #######################################################################################
 
 
-\* def Class DaemonError(exceptions.Exception):
+\* def Class DaemonError(exceptions.Exception):*\
 
-// why a daemon killed itself. Or contains what may have happened before the daemon crashed. *\
+// why a daemon killed itself. Or contains what may have happened before the daemon crashed.
 
 
 I need to work on this, Because It can tell me alot of why a Daemon suddenly died, I want it to at least leave me a encrypted message or status code that I can interpret. Who knows if I am getting REVERSE PEN-TESTED?!?
 
-***
+
 
 
 # [Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]
@@ -223,10 +225,10 @@ I need to look into the matter more, since now I know how to redirect the values
 
 But the fact that Routersploit automatically gets caught up in the standard Debian logs is alarming.
 <br><br>
-								\* **[Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
+								\ [Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
 								/var/log/user.log:63628:Dec 23 16:25:39 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
 								/var/log/user.log:63632:Dec 23 17:02:22 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
-								/var/log/user.log:63633:Dec 23 17:02:22 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)]** *\
+								/var/log/user.log:63633:Dec 23 17:02:22 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)] \
 
 <br><br>
 Meanwhile I am trying to create a duplicate pipe to allow viewing of the standard routerpsloit shell. However I came across several realizations, one there wont be any output on that shell because this is completely automated and therefore no data was entered into the default shell, two, there really is no need for entry of text, three, I already resolved the issue of the module import problems for integrating with routersploit, you are required to manually append both routersploit folders from the official repo to allow your custom autopwn module to work.
@@ -248,44 +250,44 @@ How the RouterSploit Shell works is that it has several sub-components that make
 As a user, you can actually interact with ALL THREE SHELLS at the same time right now to give it customized commands and background jobs, by downloading the official Routersploit Repo:
 
 and then  navigate to the module tree directory (for me it's in /root/Documents)
-**
-cd /root/Documents**
+
+cd /root/Documents
 
 And activate python and immediately import the modules
-**
-																								\* python
+
+																								\ python
 																								>>>import routersploit
-																								>>>from routersploit import *
+																								>>>from routersploit import
 																								>>>import __future__
 																								>>>import __builtin__
-																								>>>from __builtin__ import *
+																								>>>from __builtin__ import
 																								>>>import routersploit.modules.utils
-																								>>>from __future__ import absolute_import**
+																								>>>from __future__ import absolute_import
 																								>>>interpreter.BaseInterpreter()
 																								>>><routersploit.interpreter.BaseInterpreter object at 0x7fb92ac76510>
-																								>>>interpreter.BaseInterpreter(__init__) *\
+																								>>>interpreter.BaseInterpreter(__init__) \
 
 If you are lost, don't forget you use your help(OBJECT) and dir(OBJECT) commands.
 
 But what I found was this one command, which after a bit of tinkering, was fully enabled to allow me to integrate my scripts and software with theirs and allow me to push commands to Routersploit to give it a job to do.
-**
-interpreter.RoutersploitInterpreter().commands()**
-***
 
-\* ['back', 'check', 'exec', 'exit', 'exploit', 'help', 'run', 'search', 'set', 'setg', 'show', 'unsetg', 'use']*** *\
+interpreter.RoutersploitInterpreter().commands()
+
+
+\ ['back', 'check', 'exec', 'exit', 'exploit', 'help', 'run', 'search', 'set', 'setg', 'show', 'unsetg', 'use'] \
 
 
 This is the most basic of the RSF Shell commands, all it does is query the shell to tell us all of the available commands. And the unordered array was the output. All of this was discovered by typing commands into the Python shell. That means it should be as easy as importing the Routersploit modules into your own Python programs.
 
 The syntax for this, and other subsequent important commands comes in this format...
 
-																								\* **Interpreter.RouterSploitInterpreter.action('CMD', args, xargs)** *\
+																								\ Interpreter.RouterSploitInterpreter.action('CMD', args, xargs) \
 
 Everything that was on the top of that Python list, can be executed through this interpreter, as long as you IMPORT the right modules! As it turns out, there was a lapse in organization for the RSF development, and I spent about two yhours looking for the other modules to import to give the shell full functionality. But it seems current progress points is that they are trying hard to merge two different designs for their back-end together.
 
 Here is a sample of some syntax.
 
-\*
+\
 # starts up the interpreter, basically the shell started.
 
 interpreter.RoutersploitInterpreter.start()
@@ -317,7 +319,7 @@ interpreter.BaseInterpreter().parse_line("show payloads")
 
 # The next step up is calling the command_handler() to have it review the parsed user input. If you fail to inject a command into the parse_line function, a less reliable but decent second try is injecting the command into the get_command_handler() function.
 
-interpreter.BaseInterpreter(get_command_handler('show')) *\
+interpreter.BaseInterpreter(get_command_handler('show')) \
 
 # [The auto exploiting Rpi...]
 
@@ -326,12 +328,12 @@ Any assailant will not look suspicious at all as long as the Pi is powered on  a
 It's much like handling a "pentest drop-box". But this time, the Pi is completely automated and ordered to exploit and post-exploit it's targeted victims
 
 Furthermore I have completed approximately 90% of the rest of the work that is meant to be added to the Pi or to compliment the gear of "wireless pentesters". For example...
-\*
+\
 1. A fully autonomous password-cracking rig that is automated by cronjobs, Python scripts, and shell scripts. It handles the process of converting captured WPA handshakes into a hashcat compatible format, and will automataically queue and begin brute-forcing (dictionary attack style) as soon as it reboots. It applies a improved version of my hashcat add-ons that I put into Arms-Commander.
 
 2. A completely automatic, cracked-password sorting and credential installation service. What I mean is, at a push of a button, it will parse the default HashCat potfile at /root/.hashcat/hashcat.potfile (for Kali Linux installations) to get rid of duplicate entries and false-positives.
 
-And then "installs" the credentials onto your nearest mobile device by copying and appending the login information to your /etc/wpa_supplicant/wpa_supplicant.conf *\
+And then "installs" the credentials onto your nearest mobile device by copying and appending the login information to your /etc/wpa_supplicant/wpa_supplicant.conf \
 
 As soon as you approach the area of your target that you are returning to, your network-manager should have already connected you to the target, ready for exploitation and post-exploitation.
 
@@ -349,7 +351,7 @@ What else should I mention? I also built a wireless attack drone out of a AR Dro
 Also more than meets the eye for all of these Raspberry Pi's. They might look small, but they pack quite a punch. In both the initial deauth-attack and returning exploitation phases of the pentests, they are equipped with top-of-the-line wireless antennas that are extremely hard to find out in the wild.
 
 I have four amplifiers mated to a network card at any time of the day.
-\*
+\
 2x Hak5 Wireless Adapters with a integrated RT3070 Wi-Fi Amplifier
 1x Hak5 Long-Range 400-to-800mW Wi-Fi Booster for reverse-SMA connections
 1x Ubiquiti Networks M2 Bullet Wireless Signal Injector, with special features such as audio-beep assisted targeting, persistent-reconnections with my targets, and a neat spectrum analyzer to determine levels of interference and the feasibility of a attack angle if you consider radio interference.
@@ -357,7 +359,7 @@ I have four amplifiers mated to a network card at any time of the day.
 
 Also 2x Antennas exceeding 13 dbi, each.
 	a. One is a SimpleWiFi 2.4Ghz Parabolic Dish Antenna with a rating of 24 dbi
-	b. Another is a cheap TrendNet Panel I got from Fry's rated at 14dbi. It is still useful because it allows the signal to be projected in a 30-degree wide "cone", which is more suitable for Rogue Access Points. *\
+	b. Another is a cheap TrendNet Panel I got from Fry's rated at 14dbi. It is still useful because it allows the signal to be projected in a 30-degree wide "cone", which is more suitable for Rogue Access Points. \
 
 
 # Company dragged into a cybersecurity incident. Handled.
