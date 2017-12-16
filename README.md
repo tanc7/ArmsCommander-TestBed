@@ -1,4 +1,5 @@
-<html>
+{::nomarkdown}
+<!-- HTML CODE-->
 
 # The move towards Daemonization
 
@@ -377,4 +378,5 @@ But assuming that all goes well, I may personally vet for the script or program 
 C.T. Lister
 Lister Unlimited Cybersecurity Solutions, LLC.
 9:55pm, November 13th.
-</html>
+
+{:/}
