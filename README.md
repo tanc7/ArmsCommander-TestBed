@@ -1,6 +1,215 @@
 <html>
 
-[Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]
+# The move towards Daemonization
+
+Dear loyal users of LULLC products such as ArmsCommander and Cylon-Raider. Be sure to anticipate a major update coming soon when our research completes. Currently the results that we have reviewed over in our various penetration testing projects point to that...
+
+								**We need to make better use of *nix daemons. Particularly, the service-daemon type.**
+
+A lot of people may disagree with me on this statement. Particularly because we are not creating a ordinary UNIX daemon, **our daemon is designed for pentests and therefore is "malignant by design"**. Some people may claim this is extremely dangerous. But I will assure you, that outside of the scope of their assigned tasks, they are completely confined to performing what they were told to do and only that, very very well. They are bound to extremely confining chroot and permissions policies and cannot be told to diverge from their programming.
+
+In order to incorporate features such as integration with a Raspberry Pi and fully automatic post-exploitation of cracked passwords....
+
+1. We need a service-daemon managing programs such as Wardriver Express, besside-ng, Cylon-Raider, network manager, and the aircrack suite, and can continuously manage the nettools package autonomously.
+2. For the password cracking rigs that we have managed to fully automate, we need a service hardware daemon to manage the constant rotation of cracked hashes, saving and exports of the Hashcat.potfile to WPA_supplicant. Most of the time, the network adapters were already gbeing managed by their own daemons.
+3. We need a post-exploitation daemon to run a few repetitive tasks as soon as we connect to a network
+
+# We do need at least two daemons.
+
+These daemons are not true daemons. Rather they are what I like to call, subdaemons, and will be managed by native Linux daemons such as CRON and SystemD. They resemble system services like systemd and supervisord. But they wield a incredible amount of root permissions and power. Beccause of their role and the information they hold, and what they were designed to do, they are likely prioritized targets for malicious actors seeking to pry information.
+
+They are however, going to be 100% entirely independent and will be composed of a single file, because current attempts to daemonize components for our hashcat integrations have caused major crashes and service restarts through systemd. It also broke and set us back for weeks on several projects when a python binary crashed and we were unable to retain another copy of the work, aside of a corrupted pyc file. That was our fully-automatic password cracker for hashcat.
+
+# Design Proposals
+
+Another proposition is to instead, split the daemon into multiple, independent, self-aware components. Our daemons often require the traversal of multiple directories, for example,
+
+						**to detect, copy and convert all of the .cap capture files on hard disk partition /dev/sda7 into another mounted partition on /dev/sdd2 and then convert the files to .hccapx format, crack the hashes, add the hashes to the potfile, extract the cracked hashes out of the potfile and generate a wpa_supplicant.conf file for each cracked BSSID, auto-load it into the /etc/wpa_supplicant directory of every compatible device (penetration testing device) that logs into our local wireless LAN**
+
+From that, this daemon service will have several components.
+
+			1. A service daemon that manages a single drop-off folder for newly captured password hashes. Like /root/Documents/captured_WPA_hashes
+			2. A hashcat manager daemon that will automatically rotate and delete cracked hashes while adding new hashes to the queue in /root/ArmsCommander/logs/HashCat
+			3. A potfile manager daemon that will scan the potfile in /root/.hashcat/hashcat.potfile, find any new hashes, and write a wpa_supplicant.conf string into a master file.
+			4. A wpa_supplicant editor daemon that will scan the /etc/wpa_supplicant/wpa_supplicant.conf file of every registered penetration device that connected, and then compare the cloned wpa_supplicant.conf, and make the necessary appendings and or additions to keep the visitor's wpa_supplicant.conf updated with new autologin c redentials.
+
+Since these services operate independently from each other, then the UNIX service daemon will actually become a manager type of daemon that issues orders to multiple, independent subdaemon minions. The subdaemons are autonomous and it MAY BE possible to give certain orders to them to perform dangerous commands, but the likelihood of that requires the full discovery, compromise, and exploitation of both the manager daemon service and the subdaemon's source code while it's running. IT's kind of hard to mess with a background processes's code while it's running on Python. They would have to parse through thousands of lines of binary and intercept and alter the instructions that the service daemon is issuing to them but also have to reprogram the subdaemon's response to the task.
+
+# Another Example: Wi-Fi Pentest Daemon.
+
+The Wi-Fi Pentest Daemon will have several services
+
+			1. A network interface daemon that will manage the wireless interfaces and run network discovery tools in the background. The NIC Daemon also reconnects the attacking device in the event that we lose connection, like hitting a firewall rule or bad signal.
+			2. A Routersploit Back-End Daemon that utilizes the discovery I made about interface with the routersploit.routersploit.exploits.Exploit(args) class and directly change the target, port, threads parameters, and re-launch the autopwn module. The value of the target IP and port is constantly being updated and fed to them by the Network Interface Daemon and the Scanner Daemon
+			3. A scanner daemon that runs services such as DotDotPwn directory traversal scanner, nmap scripts, Metasploit discovery tools,
+			4. A Auth Daemon that tries passwords and attempts to brute-force newly discovered deviuces, networks, and ports discovered by the Scanner Daemon.
+
+	A lot of our services are based on the standard tty console. We are considering using Pyrasite Terminals to interface with that to create a more transparent method to manipulate data in the backenmd while our attacks are starting off.
+
+# What a attacker COULD DO to a LULLC Daemon.
+
+It would be better for the attacker ***to spawn his own daemon services*** as soon as he acquires root access. Since the daemons would **very likely, not be aware of one another, and we as the user are not aware of their purposes because they are daemons. They do not have STDIN,STDERR, or STDOUT outputs**. They do not report to anyone. And outside of what they are designed to do and the chroot they are confined to, they have no power outside of their realms.
+
+The only anomalies would be ifn a daemon malfunctioned because the attacker's daemons moved or relocated a directory needed for their main tasks. Or changed the permissions of a directory, causing our service daemon to crash.
+
+# Basic Anatomy of LULLC daemons (Proposed)
+
+We are basing this on the design of the python-daemon package available on PIP.
+
+*The RPi Custom Routersploit Daemon is a single service manager in charge of dozens of subdaemons/bots. They are all derived from the same daemons.DaemonContext.(profile) class. Of my design.
+
+The Daemon Class in its entirely is composed of a SINGLE Master Service Daemon. But this master Daemon manages subdaemons/bots that perform it's tasks and is defined as modules/functions/instances of a class.
+
+So... lets say the NIC daemon if it was named NIC_subdaemon = process then it would have a method represented as a function for each task it does.*
+
+**NIC_subdaemon module:**
+-->def method_switch_MAC_addr(interface):
+-->def run(): does the default method.
+-->def stop():
+--->sys.exit('Ordered to stop')
+-->def get_gw_ip(): does what its told and gets gateway IP, open port, and forwards this to my routersploit daemon to be used.
+-->def daemonize():
+	Does all of the "cool shit"...
+
+so python NIC_subdaemon.py and then NIC_subdaemon.stop() and NIC_subdaemon.get_gw_ip(). All the lame boring stuff.
+
+When that's done, I am going to daemonize this process to make him run autonomously in background
+
+[u]**NIC_subdaemon.daemonize()**[/u] Begins the satanic ritual that turns him into a daemon.
+
+NIC_subdaemon.daemonize():
+		os.chdir('/root/daemons_be_here')
+		os.system('python -c import daemonize, from daemonize import star')
+		original_file_myself = '/root/Documents/NIC_subdaemon.py'
+		dir_path = os.path.dirname(os.path.realpath(original_dir))
+		generate_daemon_NIC(daemon.DaemonContext, original_file_myself)
+		return
+**We need to have a function that tells us what to do**
+
+
+**Then we need to add a class to generate a daemon, probably in a different file or module**
+
+############################################################################
+\*def generate_daemon_NIC(daemon_class_dir, process_instructions):
+						sys.path.append(daemon_class_dir)
+						from daemon_class_dir import daemon
+						from daemon import *
+						from daemon.DaemonContext import *
+
+						MyLovelyDaemon = __daemon_module__.daemon.DaemonContext(NIC_subdaemon)
+						MyLovelyDaemon.open()
+						os.system('python -c import python_instructions; from instructions import star; instructions.task.method()')
+
+
+						// Off he goes to do something!
+						return MyLovelyDaemon*\
+
+
+##############################################################################
+
+\*def Class DaemonContext(self): // standard template
+
+				def __daemon_name__ = __module__.daemon.DaemonContext(__init__): // This part defines the traits of all of the daemons
+
+				// the original daemon.DaemonContext design implies that you neeed to rewrite this class for EACH subdaemon you create and then give it DaemonContext capabilities. Like you would buiuld each daemon from scratch. Thats pretty inefficient.
+
+				// I want it to where we can spawn as many daemons as we want. Just point this class to the program and fire it off.
+
+							__daemon_name__.permissions = 'root'
+							__daemon_name__.detach_process = 'True'
+							__daemon_name__.chroot_directory = '/root/'
+							__daemon_name__.working_directory = '/etc/network/'
+							__daemon_name__.signalmap = '__daemon__name__signalmap.txt'
+							__daemon_name__.instructions = '__daemon__name__progam.py'
+
+							// This is your PRIMARY daemon program file. This is NOT a feature in python-daemon! You must add this yourself.
+
+							__daemon_name__.umask = '755'
+							__daemon_name__.pidfile = '/var/run/__daemon_name__.pidfile'
+							__daemon_name__.uid = os.getuid() + 104-72 * 5
+							__daemon_name__.gid = os.getgid() + 104+72 / 5
+							__daemon_name__.preventcore = True
+							__daemon_name__.initgroups = True
+							__daemon_name__.stdin = '/dev/null'
+							__daemon_name__.stdout = '/dev/null'
+							__daemon_name__.stderr = '/dev/null'
+\*
+##################################################################################################################
+**my vision**
+
+Class wireless_pentest.daemon.DaemonContext(__init__)
+def wireless_pentest.daemon.DaemonContext(RSF_backend_subdaemon)
+def wireless_pentest.daemon.DaemonContext(SHELL_subdaemon)
+def wireless_pentest.daemon.DaemonContext(Discovery_subdaemon)
+def wireless_pentest.daemon.DaemonContext(Auth_subdaemon)
+
+######################################################################################################################
+// this is the NIC_subdaemon example config
+
+				def __daemon_name__ = __module__.daemon.DaemonContext(__init__): // This part defines the traits of all of the daemons
+
+							__daemon_name__.permissions = 'root'
+							__daemon_name__.detach_process = 'True'
+							__daemon_name__.chroot_directory = '/root/'
+							__daemon_name__.working_directory = '/etc/network/'
+							__daemon_name__.signalmap = '__daemon__name__signalmap.txt'
+							__daemon_name__.instructions = '__daemon__name__progam.py'
+							__daemon_name__.umask = '755'
+							__daemon_name__.pidfile = '/var/run/__daemon_name__.pidfile'
+							__daemon_name__.uid = os.getuid()
+							__daemon_name__.gid = os.getgid()
+							__daemon_name__.preventcore = True
+							__daemon_name__.initgroups = True
+							__daemon_name__.stdin = '/dev/null'
+							__daemon_name__.stdout = '/dev/null'
+							__daemon_name__.stderr = '/dev/null'
+
+
+**if I wante dto make me a network interface daemon right now.... quickn and easy....**
+
+
+NIC_subdaemon = NIC_subdaemon.daemon.DaemonContext(__init__) // better yet, make one specifically for NIC subdaemon.
+
+NIC_subdaemon.open()
+
+// **Powers up the daemon. Right there.**
+def config_daemon(NIC_subdaemon, desired_uid, desired_gid):
+		try:
+			new_uid = desired_uid
+			new_gid = desired_gid
+
+			// accoridng to the daemon module .get_username_for_uid(uid)
+			// 0 = root
+			// 1 = daemon
+			// 2 = bin
+			// 3 = sys
+			NIC_subdaemon.change_process_owner(new_uid, new_gid, initgroups=True)
+		except DaemonOSEnvironmentError:
+
+		// catches wrong permissions error and attempts to change its UID AGAIN to not have itself die.
+
+			new_uid += 1
+			new_gid += 1
+			config_daemon(NIC_subdaemon, new_gid, new_uid) // tries a new uid and gid
+		return daemon_name, new_gid, new_uid
+
+NIC_subdaemon.change_working_directory('/etc/wpa_supplicant')
+
+// dump passwords
+daemon.pwd.getpwall()
+
+
+
+def Class DaemonError(exceptions.Exception):
+
+// why a daemon killed itself. Or contains what may have happened before the daemon crashed.
+
+
+*I need to work on this, Because It can tell me alot of why a Daemon suddenly died, I want it to at least leave me a encrypted message or status code that I can interpret. Who knows if I am getting REVERSE PEN-TESTED?!?
+
+***
+# [Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]
+
 
 Update on December 14th.
 
