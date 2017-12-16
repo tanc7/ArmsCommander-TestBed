@@ -1,7 +1,7 @@
 {::nomarkdown}
 <!-- HTML CODE-->
 <html style="font-size: 12">
-<body>
+<body style="font-size: 12">
 
 <p><h4 style="font-size: 14">
 If you hate my formatting, it's because I was forced to use MARK-DOWN. One of the WORST "languages" I have ever came across. This is my second hour trying to publish this damn thing. ANd I can't get it to look right.
@@ -9,15 +9,15 @@ If you hate my formatting, it's because I was forced to use MARK-DOWN. One of th
 Trying to force HTML and CSS.
 </p></h4>
 
-<h3 style="font-size:16"> The move towards Daemonization</h3>
+<h3 style="font-size:16; text-align: center"> The move towards Daemonization</h3>
 <p style="font-size:12">
 
 Dear loyal users of LULLC products such as ArmsCommander and Cylon-Raider. Be sure to anticipate a major update coming soon when our research completes. Currently the results that we have reviewed over in our various penetration testing projects point to that...
 
 We need to make better use of nix daemons. Particularly, the service-daemon type.
-
-A lot of people may disagree with me on this statement. Particularly because we are not creating a ordinary UNIX daemon, our daemon is designed for pentests and therefore is "malignant by design". Some people may claim this is extremely dangerous. But I will assure you, that outside of the scope of their assigned tasks, they are completely confined to performing what they were told to do and only that, very very well. They are bound to extremely confining chroot and permissions policies and cannot be told to diverge from their programming.
-
+<br><br>
+A lot of people may disagree with me on this statement. Particularly because we are not creating a ordinary UNIX daemon, <b>our daemon is designed for pentests and therefore is "malignant by design". Some people may claim this is extremely dangerous.</b> But I will assure you, that outside of the scope of their assigned tasks, they are completely confined to performing what they were told to do and only that, very very well. They are bound to extremely confining chroot and permissions policies and cannot be told to diverge from their programming.
+<br><br>
 In order to incorporate features such as integration with a Raspberry Pi and fully automatic post-exploitation of cracked passwords....
 
 We need a service-daemon managing programs such as Wardriver Express, besside-ng, Cylon-Raider, network manager, and the aircrack suite, and can continuously manage the nettools package autonomously.
@@ -26,64 +26,72 @@ For the password cracking rigs that we have managed to fully automate, we need a
 
 We need a post-exploitation daemon to run a few repetitive tasks as soon as we connect to a network
 
-<h3 style="font-size:16"> We do need at least two daemons.</h3>
+<h3 style="font-size:16; text-align: center"> We do need at least two daemons.</h3>
 These daemons are not true daemons. Rather they are what I like to call, subdaemons, and will be managed by native Linux daemons such as CRON and SystemD. They resemble system services like systemd and supervisord. But they wield a incredible amount of root permissions and power. Beccause of their role and the information they hold, and what they were designed to do, they are likely prioritized targets for malicious actors seeking to pry information.
 
 They are however, going to be 100% entirely independent and will be composed of a single file, because current attempts to daemonize components for our hashcat integrations have caused major crashes and service restarts through systemd. It also broke and set us back for weeks on several projects when a python binary crashed and we were unable to retain another copy of the work, aside of a corrupted pyc file. That was our fully-automatic password cracker for hashcat.
 
-<h3 style="font-size:16"> Design Proposals</h3>
+<h3 style="font-size:16; text-align: center"> Design Proposals</h3>
 
 Another proposition is to instead, split the daemon into multiple, independent, self-aware components. Our daemons often require the traversal of multiple directories, for example,
 
-<br><br><code>
-to detect, copy and convert all of the .cap capture files on hard disk partition /dev/sda7 into another mounted partition on /dev/sdd2
-and then convert the files to .hccapx format,
-crack the hashes,
-add the hashes to the potfile,
-extract the cracked hashes out of the potfile
-and generate a wpa_supplicant.conf file for each cracked BSSID,
-auto-load it into the /etc/wpa_supplicant directory
-of every compatible device (penetration testing device)
-that logs into our local wireless LAN
+<br><br><code style="font-size:14">
+  <ol>
+    <li>to <b> detect, copy and convert all of the .cap capture files</b> on hard disk partition /dev/sda7 into another mounted partition on /dev/sdd2
+    liand then convert the files <b> to .hccapx format,</b></li>
+    <li><b> crack the hashes,</b></li>
+    <li><b> add the hashes to the potfile</b>,</li>
+    <li><b> extract the cracked hashes</b> out of the potfile </li>
+    <li>and <b> generate a wpa_supplicant.conf file</b> for each cracked bssid,</li>
+    <li><b>auto-load it into the /etc/wpa_supplicant directory</b> </li>
+    <li>of every compatible device (<b>penetration testing device</b>)</li>
+    <li>that logs into our local wireless lan </li>
+  </ol>
+
 <br><br></code>
 
 
 
-<h3 style="font-size:16">The Wi-Fi Pentest Daemon will have several services</h3>
+<h3 style="font-size:16; text-align: center">The Wi-Fi Pentest Daemon will have several services</h3>
 From that, this daemon service will have several components.
 
-<br><br><code>
-Ahashcat manager daemon that will automatically rotate and delete cracked hashes while adding new hashes to the queue in /root/ArmsCommander/logs/HashCat
-Aservice daemon that manages a single drop-off folder for newly captured password hashes. Like /root/Documents/captured_WPA_hashes
-Apotfile manager daemon that will scan the potfile in /root/.hashcat/hashcat.potfile, find any new hashes, and write a wpa_supplicant.conf string into a master file.
-Awpa_supplicant editor daemon that will scan the /etc/wpa_supplicant/wpa_supplicant.conf file of every registered penetration device that connected,
-and then compare the cloned wpa_supplicant.conf,
-and make the necessary appendings and or additions to keep the visitor's wpa_supplicant.conf updated with new autologin credentials.
-<br><br></code>
+<ol>
+  <br><br><code style="font-size:14">
+  <li>a<b> Hashcat Manager Daemon</b> that will automatically rotate and delete cracked hashes while adding new hashes to the queue in /root/armscommander/logs/hashcat </li>
+  <li>a<b> Password Service Daemon</b> that manages a single drop-off folder for newly captured password hashes. like /root/documents/captured_wpa_hashes </li>
+  <li>a<b> Potfile Manager Daemon</b> that will scan the potfile in /root/.hashcat/hashcat.potfile, find any new hashes, and write a wpa_supplicant.conf string into a master file. </li>
+  <li>a<b> Network Credentials Daemon</b> that will scan the /etc/wpa_supplicant/wpa_supplicant.conf file of every registered penetration device that connected, </li>
+  <li>and then compare the cloned wpa_supplicant.conf, </li>
+  <li>and make the necessary appendings and or additions to <b>keep the visitor's wpa_supplicant.conf updated with new autologin credentials.</b> </li>
+  <br><br></code>
+
+</ol>
 
 
-Since these services operate independently from each other, then the UNIX service daemon will actually become a manager type of daemon that issues orders to multiple, independent subdaemon minions. The subdaemons are autonomous and it MAY BE possible to give certain orders to them to perform dangerous commands, but the likelihood of that requires the full discovery, compromise, and exploitation of both the manager daemon service and the subdaemon's source code while it's running. IT's kind of hard to mess with a background processes's code while it's running on Python. They would have to parse through thousands of lines of binary and intercept and alter the instructions that the service daemon is issuing to them but also have to reprogram the subdaemon's response to the task.
 
-<h3 style="font-size:16"> Another Example: Wi-Fi Pentest Daemon.</h3>
+Since these services operate independently from each other, then the UNIX <b>Password Service Daemon</b> will actually become a manager type of daemon that issues orders to multiple, independent subdaemon minions. The subdaemons are autonomous and it MAY BE possible to give certain orders to them to perform dangerous commands, but the likelihood of that requires the full discovery, compromise, and exploitation of both the manager daemon service and the subdaemon's source code while it's running. IT's kind of hard to mess with a background processes's code while it's running on Python. They would have to parse through thousands of lines of binary and intercept and alter the instructions that the <b>Password Service Daemon</b> is issuing to them but also have to reprogram the subdaemon's response to the task.
 
-The Wi-Fi Pentest Daemon will have several services
+<h3 style="font-size:16; text-align: center"> Another Example: Wi-Fi Pentest Daemon.</h3>
 
-<br>1. A network interface daemon that will manage the wireless interfaces and run network discovery tools in the background. The
+The Wi-Fi Pentest Daemon will have several services <br><br>
+
+<br>1. A <b><u>Network Interface Daemon</b></u> that will manage the wireless interfaces and run network discovery tools in the background. The
 NIC Daemon also reconnects the attacking device in the event that we lose connection, like hitting a firewall rule or bad signal.
-<br>2. A Routersploit Back-End Daemon that utilizes the discovery I made about interface with the routersploit.routersploit.exploits.Exploit(args)
-class and directly change the target, port, threads parameters, and re-launch the autopwn module. The value of the target IP and port is constantly being updated and fed to them by the Network Interface Daemon and the Scanner Daemon
-<br>3. A scanner daemon that runs services such as DotDotPwn directory traversal scanner, nmap scripts, Metasploit discovery tools,
-4. A Auth Daemon that tries passwords and attempts to brute-force newly discovered deviuces, networks, and ports discovered by the Scanner Daemon.
+<br>2. A <b><u>Routersploit Back-End Daemon</b></u> that utilizes the discovery I made about interface with the routersploit.routersploit.exploits.Exploit(args)
+class and directly change the target, port, threads parameters, and re-launch the autopwn module. The value of the target IP and port is constantly being updated and fed to them by the <b><u>Network Interface Daemon</b></u> and the <b><u>Scanner Daemon</b></u>
+<br>3. A <b><u>Scanner Daemon</b></u> that runs services such as DotDotPwn directory traversal scanner, nmap scripts, Metasploit discovery tools,
 
+<br>4. A <b><u>Auth Daemon</b></u> that tries passwords and attempts to brute-force newly discovered deviuces, networks, and ports discovered by the <b><u>Scanner Daemon</b></u>.
+<br><br>
 A lot of our services are based on the standard tty console. We are considering using Pyrasite Terminals to interface with that to create a more transparent method to manipulate data in the backenmd while our attacks are starting off.
 
-<h3 style="font-size:16"> What a attacker COULD DO to a LULLC Daemon.</h3>
+<h3 style="font-size:16; text-align: center"> What a attacker COULD DO to a LULLC Daemon.</h3>
 
 It would be better for the attacker to spawn his own daemon servicee as soon as he acquires root access. Since the daemons would very likely, not be aware of one another, and we as the user are not aware of their purposes because they are daemons. They do not have STDIN,STDERR, or STDOUT outputs. They do not report to anyone. And outside of what they are designed to do and the chroot they are confined to, they have no power outside of their realms.
 
-The only anomalies would be ifn a daemon malfunctioned because the attacker's daemons moved or relocated a directory needed for their main tasks. Or changed the permissions of a directory, causing our service daemon to crash.
+The only anomalies would be ifn a daemon malfunctioned because the attacker's daemons moved or relocated a directory needed for their main tasks. Or changed the permissions of a directory, causing our <b>Password Service Daemon</b> to crash.
 
-<h3 style="font-size:16"> Basic Anatomy of LULLC daemons (Proposed)</h3>
+<h3 style="font-size:16; text-align: center"> Basic Anatomy of LULLC daemons (Proposed)</h3>
 
 We are basing this on the design of the python-daemon package available on PIP.
 
@@ -91,7 +99,7 @@ The RPi Custom Routersploit Daemon is a single service manager in charge of doze
 class. Of my design.
 
 The Daemon
-class in its entirely is composed of a SINGLE Master Service Daemon. But this master Daemon manages subdaemons/bots that perform it's tasks and is
+class in its entirely is composed of a SINGLE Master <b>Password Service Daemon</b>. But this master Daemon manages subdaemons/bots that perform it's tasks and is
 
 <br>defined as modules/functions/instances of a
 class.
@@ -99,7 +107,7 @@ class.
 So... lets say the
 NIC daemon if it was named
 NIC_subdaemon = process then it would have a method represented as a function for each task it does.
-<br><br><code>
+<br><br><code style="font-size:14">
 
 NIC_subdaemon module:
 
@@ -125,38 +133,39 @@ sys.exit('Ordered to stop')<br><br></code>
 Does all of the "cool shit"...
 
 so python
-NIC_subdaemon.py and then
-NIC_subdaemon.stop() and
+NIC_subdaemon.py
+and then
+NIC_subdaemon.stop()
+and
 NIC_subdaemon.get_gw_ip().
 
 All the lame boring stuff.
 
 When that's done, I am going to daemonize this process to make him run autonomously in background
-[u]
-NIC_subdaemon.daemonize()[/u] Begins the sata
-NIC ritual that turns him into a daemon.
-<br><br><code>
+<u>
+NIC_subdaemon.daemonize()</u>
 
-NIC_subdaemon.daemonize():<br>
-os.chdir('/root/daemons_be_here')<br><br></code>
-os.system('python -c import daemonize, <br>from daemonize import star')<br><br></code>
-original_file_myself = '/root/Documents/
-NIC_subdaemon.py'
+Begins the sataNIC ritual that turns him into a daemon.
 
+<br><br><code style="font-size:14">
+
+NIC_subdaemon.daemonize():
+os.chdir('/root/daemons_be_here')
+os.system('python -c import daemonize,
+from daemonize import star')
+original_file_myself = '/root/Documents/NIC_subdaemon.py'
 dir_path = os.path.dirname(os.path.realpath(original_dir)
-
 generate_daemon_NIC(daemon.DaemonContext, original_file_myself)
-
 return
 
 <br><br></code>
 
-<h3 style="font-size:16"> We need to have a function that tells us what to do</h3>
+<h3 style="font-size:16; text-align: center"> We need to have a function that tells us what to do</h3>
 
 Then we need to add a
 class to generate a daemon, probably in a different file or module
 
-<br><br><code>
+<br><br><code style="font-size:14">
 
 
 <br>def generate_daemon_NIC(daemon_class_dir, process_instructions):<br>
@@ -175,10 +184,10 @@ return MyLovelyDaemon
 
 
 
-<h3 style="font-size:16">The DaemonContext instance. Heart of the daemon</h3>
+<h3 style="font-size:16; text-align: center">The DaemonContext instance. Heart of the daemon</h3>
 
 <body>
-<br><br><code>
+<br><br><code style="font-size:14">
 
 
 <br>def class DaemonContext(self):<br>  standard template
@@ -194,7 +203,7 @@ class for EACH subdaemon you create and then give it DaemonContext capabilities.
 
  I want it to where we can spawn as many daemons as we want. Just point this
 class to the program and fire it off.
-<br><br><code>
+<br><br><code style="font-size:14">
 
 __daemon_name__.permissions = 'root'
 
@@ -209,7 +218,7 @@ __daemon_name__.signalmap = '__daemon__name__signalmap.txt'
 __daemon_name__.instructions = '__daemon__name__progam.py'
 <br><br></code>
  This is your PRIMARY daemon program file. This is NOT a feature in python-daemon! You must add this yourself.
-<br><br><code>
+<br><br><code style="font-size:14">
 
 __daemon_name__.umask = '755'
 
@@ -235,9 +244,9 @@ __daemon_name__.stderr = '/dev/null'
 <br><br></code>
 
 <body>
-<h3 style="font-size:16">My vision of the primary Daemon
+<h3 style="font-size:16; text-align: center">My vision of the primary Daemon
 class.</h3>
-<br><br><code>
+<br><br><code style="font-size:14">
 
 class wireless_pentest.daemon.DaemonContext(__init__)
 
@@ -297,10 +306,12 @@ NIC_subdaemon.stderr = '/dev/null'
 
 </body>
 
-<h3 style="font-size:16">if I wante dto make me a network interface daemon right now.... quickn and easy....</h3>
-<br><br><code>
+<h3 style="font-size:16; text-align: center">if I wante dto make me a <b><u>Network Interface Daemon</b></u> right now.... quickn and easy....</h3>
+<br><br><code style="font-size:14">
 
-NIC_subdaemon = wireless_pentest.daemon.DaemonContext(__init__)  better yet, make one specifically for
+NIC_subdaemon = wireless_pentest.daemon.DaemonContext(__init__)
+
+better yet, make one specifically for
 NIC subdaemon.
 
 NIC_subdaemon.open()
@@ -336,7 +347,7 @@ daemon.pwd.getpwall()
 
 
 
-<h3 style="font-size:16">
+<h3 style="font-size:16; text-align: center">
 
 <br>def class DaemonError(exceptions.Exception):<br></h3>
 
@@ -346,7 +357,7 @@ I need to work on this, Because It can tell me alot of why a Daemon suddenly die
 
 
 
-<h3 style="font-size:16">[Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]</h3>
+<h3 style="font-size:16; text-align: center">[Improving and Honing your Hacking Abilities by Modifying the Routersploit Shell]</h3>
 
 Update on December 14th.
 
@@ -357,7 +368,7 @@ class, as shown by the alert.log file.
 
 But the fact that Routersploit automatically gets caught up in the standard Debian logs is alarming.
 
-<br><br><code>
+<br><br><code style="font-size:14">
 
 [Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
 /var/log/user.log:63628:Dec 23 16:25:39 I_DO_COCAINE org.gnome.Shell.desktop[9191]: Window manager warning: Buggy client sent a _NET_ACTIVE_WINDOW message with a timestamp of 0 for 0x1800001 (autopwn.py)
@@ -373,7 +384,7 @@ Meanwhile I am trying to create a duplicate pipe to allow viewing of the standar
 
 
 
-<h3 style="font-size:16"> After action report, Wednesday, December 13th, 2017.</h3>
+<h3 style="font-size:16; text-align: center"> After action report, Wednesday, December 13th, 2017.</h3>
 
 
 I have successfully managed to take control of the RouterSploit Shell By passing commands through the their Shell API using the standard Python <br>2.7 console.
@@ -381,7 +392,7 @@ I have successfully managed to take control of the RouterSploit Shell By passing
 What this means, is that I can createa a FULLY AUTONOMOUS Raspberry Pi that is designed to attack wireless networks with cracked passwords using the scanners/autopwn module. The Pi will be the one "typing the commands" into RouterSploit using carefully timed Python scripts, cronjobs, and bash shell commands.
 
 How the RouterSploit Shell works is that it has several sub-components that make up the terminal:
-<br><br><code>
+<br><br><code style="font-size:14">
 <br>1. A primary, Routersploit Interpreter Shell that makes up several python scripts
 <br>2. A secondary, lower-in-privilege Interpreter Shell that does most of the contract between the user and the toolkit. It is represented as a
 class-object in the file interpreter.py and shell.py
@@ -395,7 +406,7 @@ cd /root/Documents
 
 And activate python and immediately import the modules
 
-<br><br><code>
+<br><br><code style="font-size:14">
 python
 import routersploit
 from routersploit import
@@ -410,11 +421,11 @@ interpreter.BaseInterpreter(__init__)
 If you are lost, don't forget you use your help(OBJECT) and dir(OBJECT) commands.
 
 But what I found was this one command, which after a bit of tinkering, was fully enabled to allow me to integrate my scripts and software with theirs and allow me to push commands to Routersploit to give it a job to do.
-<br><br><code>
-<br><br><code>interpreter.RoutersploitInterpreter().commands()
+<br><br><code style="font-size:14">
+<br><br><code style="font-size:14">interpreter.RoutersploitInterpreter().commands()
 <br><br></code>
 
-<br><br><code>
+<br><br><code style="font-size:14">
 ['back', 'check', 'exec', 'exit', 'exploit', 'help', 'run', 'search', 'set', 'setg', 'show', 'unsetg', 'use']
 <br><br></code>
 
@@ -424,14 +435,14 @@ This is the most basic of the RSF Shell commands, all it does is query the shell
 
 The syntax for this, and other subsequent important commands comes in this format...
 
- <br><br><code>interpreter.Routersploitinterpreter.action('CMD', args, xargs)</code>
+ <br><br><code style="font-size:14">interpreter.Routersploitinterpreter.action('CMD', args, xargs)</code>
 
 Everything that was on the top of that Python list, can be executed through this interpreter, as long as you IMPORT the right modules! As it turns out, there was a lapse in organization for the RSF development, and I spent about two yhours looking for the other modules to import to give the shell full functionality. But it seems current progress points is that they are trying hard to merge two different designs for their back-end together.
 
 Here is a sample of some syntax.
 starts up the interpreter, basically the shell started.
 
-<br><br><code>interpreter.Routersploitinterpreter.start()<br><br></code>
+<br><br><code style="font-size:14">interpreter.Routersploitinterpreter.start()<br><br></code>
 
 his is actually the auto-tab-completion module for RouterSploit.
 
@@ -439,31 +450,31 @@ Baseinterpreter.available_modules_completion('payloads')<br><br></code>
 
 This is the equivalent of typing "Show Targets" in Metasploit.
 
-<br><br><code>interpreter.utils.module_required._show_devices('devices')<br><br></code>
+<br><br><code style="font-size:14">interpreter.utils.module_required._show_devices('devices')<br><br></code>
 
 This is what happens when you type "show scanners" in the RSF shell. The opt-parsing code immediately sends it to it's own submodule/process.
 
-<br><br><code>interpreter.utils.module_required.__show_modules('scanners')<br><br></code>
+<br><br><code style="font-size:14">interpreter.utils.module_required.__show_modules('scanners')<br><br></code>
 
 When you type "use scanners/autopwn" in Routersploit
 
-<br><br><code>interpreter.BaseInterpreter().command_use('scanners/autopwn')<br><br></code>
+<br><br><code style="font-size:14">interpreter.BaseInterpreter().command_use('scanners/autopwn')<br><br></code>
 
 This is how you can dump the Routersploit logs. Note the lower-case PRINT command on the left.
 
-<br><br><code>print interpreter.RoutersploitInterpreter(BaseInterpreter).history_file<br><br></code>
+<br><br><code style="font-size:14">print interpreter.RoutersploitInterpreter(BaseInterpreter).history_file<br><br></code>
 
 Even if you didn't know the module's programming syntax, you can still directly-inject commands into the parse_line(cmd) module. This was the earliest moment I could find a reliable injection point for commands.
 
-<br><br><code>interpreter.BaseInterpreter().parse_line("show payloads")<br><br></code>
+<br><br><code style="font-size:14">interpreter.BaseInterpreter().parse_line("show payloads")<br><br></code>
 
 The next step up is calling the command_handler(to have it review the parsed user input. If you fail to inject a command into the parse_line function, a less reliable but decent second try is injecting the command into the get_command_handler()function.
 
-<br><br><code>interpreter.BaseInterpreter(get_command_handler('show')<br><br></code>)
+<br><br><code style="font-size:14">interpreter.BaseInterpreter(get_command_handler('show')<br><br></code>)
 
 
 
-<h3 style="font-size:16">[The auto exploiting Rpi...]</h3>
+<h3 style="font-size:16; text-align: center">[The auto exploiting Rpi...]</h3>
 
 Any assailant will not look suspicious at all as long as the Pi is powered on  and the attacker or "pentester" should just be walking around staying within wireless range. Now that I have found a breakthrough to createa a fully-automated initial exploitating Pi I think it's your turn to find a useful for this too ;).
 
@@ -472,11 +483,11 @@ It's much like handling a "pentest drop-box". But this time, the Pi is completel
 Furthermore I have completed approximately 90% of the rest of the work that is meant to be added to the Pi or to compliment the gear of "wireless pentesters". For example...
 
 
-<h3 style="font-size:16"><br>1. A fully autonomous password-cracking rig that is automated by cronjobs, Python scripts, and shell scripts.</h3>
+<h3 style="font-size:16; text-align: center"><br>1. A fully autonomous password-cracking rig that is automated by cronjobs, Python scripts, and shell scripts.</h3>
 
 It handles the process of converting captured WPA handshakes into a hashcat compatible format, and will automataically queue and begin brute-forcing (dictionary attack style) as soon as it reboots. It applies a improved version of my hashcat add-ons that I put into Arms-Commander.
 
-<h3 style="font-size:16"><br>2. A completely automatic, cracked-password sorting and credential installation service.</h3>
+<h3 style="font-size:16; text-align: center"><br>2. A completely automatic, cracked-password sorting and credential installation service.</h3>
 
 What I mean is, at a push of a button, it will parse the
 
@@ -485,7 +496,7 @@ What I mean is, at a push of a button, it will parse the
 And then "installs" the credentials onto your nearest mobile device by copying and appending the login information to your /etc/wpa_supplicant/wpa_supplicant.conf
 As soon as you approach the area of your target that you are returning to, your network-manager should have already connected you to the target, ready for exploitation and post-exploitation.
 
-<h3 style="font-size:16"><br>3. A fully autonomous, "War-driving Raspberry Pi".</h3>
+<h3 style="font-size:16; text-align: center"><br>3. A fully autonomous, "War-driving Raspberry Pi".</h3>
 
 Do not confuse this one with <br>1. As this Raspberry Pi's mission is to grab NEW ENCRYPTED PASSWORDS as I move from one spot to another.
 
@@ -498,39 +509,36 @@ What else should I mention? I also built a wireless attack drone out of a AR Dro
 Also more than meets the eye for all of these Raspberry Pi's. They might look small, but they pack quite a punch. In both the initial deauth-attack and returning exploitation phases of the pentests, they are equipped with top-of-the-line wireless antennas that are extremely hard to find out in the wild.
 
 I have four amplifiers mated to a network card at any time of the day.
-
+<ul>
 2x Hak5 Wireless Adapters with a integrated RT3070 Wi-Fi Amplifier
 1x Hak5 Long-Range 400-to-800mW Wi-Fi Booster for reverse-SMA connections
 1x Ubiquiti Networks M2 Bullet Wireless Signal Injector, with special features such as audio-beep assisted targeting,
 persistent-reconnections with my targets, and a neat spectrum analyzer to determine levels of interference and the feasibility of aattack angle if you consider radio interference.
-
+</ul>
 
 Also 2x Antennas exceeding 13 dbi, each.
 
 a. One is a SimpleWiFi <br>2.4Ghz Parabolic Dish Antenna with a rating of 24 dbi
 b. Another is a cheap TrendNet Panel I got from Fry's rated at 14dbi. It is still useful because it allows the signal to be projected in a 30-degree wide "cone", which is more suitable for Rogue Access Points.
 
-<h3 style="font-size:16">Company dragged into a cybersecurity incident. Handled.</h3>
-<div
-class="para">
+<h3 style="font-size:16; text-align: center">Company dragged into a cybersecurity incident. Handled.</h3>
+<div class="para">
 
 Earlier this month, my website has suffered a major network attack caused by a brute-forcing botnet (of approximately 1,868 bots) that nearly killed my servers. As a response, I constructed a automatic snort alert log parser and autobanner, as well as custom configurations for Intrusion Prevention and Detection Systems for VPS-hosted websites.
 
 Not only did I turn the tables on the attacker with just a few simple fail2ban and snort rules applied company-wide (and a full switch-out of every port, especially 22, to avoid attracting new dickheads), but I also managed to enumerate the HTTP headers of the attacker, causing him to be "put on the run".
-
+<br><br>
 Anyways, this is my first two days back to work since the last day of
 class. I will have a long busy time building my company (and I don't think I passed the exam) but I will try my best to ensure that the more useful of my creations will trickle it's way into public release in ArmsCommander and Cylon-Raider. My main concern is that  in particular for this update, a lot of the things it purports to do may end up breaking your system.
 
-It requires root-level access to everything, and it messes with critical startup processes to achieve the cyber-
-
-<br>defense results that I wanted. For that reason, I decided to create a "Prototyping Repo" located here, https:github.com/tanc7/ArmsCommander-TestBed. You may try them out if you wish, but you must understand that I am not responsible for any unforseen incidents and/or damages caused by this. You are taking this, out of your own risk. Also be aware that the scripts located in that link are NOT complete. And that means little to no tech support if you screw something up.
+It requires root-level access to everything, and it messes with critical startup processes to achieve the cyber-defense results that I wanted. For that reason, I decided to create a "Prototyping Repo" located here, https:github.com/tanc7/ArmsCommander-TestBed. <br><br>You may try them out if you wish, but you must understand that I am not responsible for any unforseen incidents and/or damages caused by this. You are taking this, out of your own risk. Also be aware that the scripts located in that link are NOT complete. And that means little to no tech support if you screw something up.
 
 But assuming that all goes well, I may personally vet for the script or program to be added to the official Arms-Commander Repository.
 </div>
-
-<div class="signature" style="font-size:10; font:arial">
-C.T. Lister
-Lister Unlimited Cybersecurity Solutions, LLC.
+<br><br>
+<div class="signature" style="font-size:14; font:arial">
+C.T. Lister<br>
+Lister Unlimited Cybersecurity Solutions, LLC.<br>
 9:55pm, November 13th.
 </div>
 </p>
