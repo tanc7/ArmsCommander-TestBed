@@ -29,9 +29,9 @@ def bash_command(cmd):
     subprocess.call(cmd,shell=True,executable='/bin/bash')
     return
 
-cmd_to_pull_gateway_ip = "route -n egrep -i "{}" awk '{print $2}' grep -v 0.0.0.0"""
+cmd_to_pull_gateway_ip = "route -n egrep -i '{{}}' awk '{{print $2}}' grep -v 0.0.0.0"""
 routersploit_installation = "/root/Documents/routersploit"
-RSF_shell_call_location = "interpreter.RoutersploitInterpreter()
+RSF_shell_call_location = "interpreter.RoutersploitInterpreter()"
 subdirectory = ""
 os.chdir(routersploit_installation)
 cmd_GET_RSF_command = "interpreter.RoutersploitInterpreter().commands()"
@@ -40,7 +40,7 @@ RSF_shell_architecture = "interpreter.RoutersploitInterpreter().commands()"
 interpreter()
 #
 
-def RSF_interpreter_shell(routersploit_installation,RSF_shell_call_location,str(module_path),str(argsv_1),str(opt_argsv_2)):
+# def RSF_interpreter_shell(routersploit_installation,RSF_shell_call_location,str(module_path),str(argsv_1),str(opt_argsv_2)):
 import routersploit
 from routersploit import *
 from routersploit.modules import *
@@ -52,121 +52,89 @@ from __builtin__ import *
 import __future__
 from __future__import import *
 
-    CMD_init_all = """
-routersploit.__init__
-shell.__init__
-ssh_interactive.__init__
-routersploit.utils.__init__
-routersploit.modules.__init__
-multi.__init__
-index_modules.__init__
-help(shell)
-__call__
-, '__class__', '__closure__', '__code__', '__defaults__', '__delattr__', '__dict__', '__doc__', '__format__', '__get__', '__getattribute__', '__globals__', '__hash__', '__init__', '__module__', '__name__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'func_closure', 'func_code', 'func_defaults', 'func_dict', 'func_doc', 'func_globals', 'func_name']
-'True': True, 'FutureWarning': <type 'exceptions.FutureWarning'>, 'ImportWarning': <type 'exceptions.ImportWarning'>, 'http_request': <function http_request at 0x7fb791b2ecf8>, 'EOFError': <type 'exceptions.EOFError'>, 'str': <type 'str'>, 'sorted': <built-in function sorted>, '__builtins__': <module '__builtin__' (built-in)>, 'basestring': <type 'basestring'>, 'len': <built-in function len>, 'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
-    for supporting Python development.  See www.python.org for more information., 'frozenset': <type 'frozenset'>, '__name__': '__main__', 'ord': <built-in function ord>, 'super': <type 'super'>, 'TypeError': <type 'exceptions.TypeError'>, 'license': Type license() to see the full license text, 'KeyboardInterrupt': <type 'exceptions.KeyboardInterrupt'>, 'UserWarning': <type 'exceptions.UserWarning'>, 'routersploit': <module 'routersploit' from 'routersploit/__init__.pyc'>, 'filter': <built-in function filter>, 'range': <built-in function range>, 'print_success': <function print_success at 0x7fb791b2e668>, 'staticmethod': <type 'staticmethod'>, 'SystemError': <type 'exceptions.SystemError'>, 'BaseException': <type 'exceptions.BaseException'>, 'pow': <built-in function pow>, 'RuntimeError': <type 'exceptions.RuntimeError'>, 'float': <type 'float'>, 'GeneratorExit': <type 'exceptions.GeneratorExit'>, '__builtin__': <module '__builtin__' (built-in)>, 'StopIteration': <type 'exceptions.StopIteration'>, 'print_error': <function print_error at 0x7fb791b2e578>, 'globals': <built-in function globals>, 'divmod': <built-in function divmod>, 'enumerate': <type 'enumerate'>, 'Ellipsis': Ellipsis, 'LookupError': <type 'exceptions.LookupError'>, 'open': <built-in function open>, 'quit': Use quit() or Ctrl-D (i.e. EOF) to exit, 'wordlists': <module 'routersploit.wordlists' from 'routersploit/wordlists/__init__.pyc'>, 'UnicodeError': <type 'exceptions.UnicodeError'>, 'zip': <built-in function zip>, 'hex': <built-in function hex>, 'long': <type 'long'>, 'next': <built-in function next>, 'int': <type 'int'>, 'chr': <built-in function chr>, 'tokenize': <function tokenize at 0x7fb791b2ef50>, 'type': <type 'type'>, '__doc__': None, 'print_status': <function print_status at 0x7fb791b2e5f0>, 'shell': <function shell at 0x7fb791acd398>, 'tuple': <type 'tuple'>, 'UnicodeTranslateError': <type 'exceptions.UnicodeTranslateError'>, 'reversed': <type 'reversed'>, 'KeyError': <type 'exceptions.KeyError'>, 'UnicodeEncodeError': <type 'exceptions.UnicodeEncodeError'>, 'IOError': <type 'exceptions.IOError'>, 'hasattr': <built-in function hasattr>, 'delattr': <built-in function delattr>, 'multi': <function multi at 0x7fb791b2e488>, 'setattr': <built-in function setattr>, 'raw_input': <built-in function raw_input>, 'PendingDeprecationWarning': <type 'exceptions.PendingDeprecationWarning'>, 'compile': <built-in function compile>, 'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'print_info': <function print_info at 0x7fb791b2e6e0>, 'exceptions': <module 'routersploit.exceptions' from 'routersploit/exceptions.pyc'>, 'property': <type 'property'>, 'random_text': <function random_text at 0x7fb791b2ec80>, 'MemoryError': <type 'exceptions.MemoryError'>, 'ImportError': <type 'exceptions.ImportError'>, 'xrange': <type 'xrange'>, 'utils': <module 'routersploit.utils' from 'routersploit/utils/__init__.pyc'>, 'Exception': <type 'exceptions.Exception'>, 'coerce': <built-in function coerce>, 'SyntaxWarning': <type 'exceptions.SyntaxWarning'>, 'file': <type 'file'>, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, 'unichr': <built-in function unichr>, 'UnboundLocalError': <type 'exceptions.UnboundLocalError'>, 'id': <built-in function id>, 'OSError': <type 'exceptions.OSError'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'min': <built-in function min>, 'UnicodeWarning': <type 'exceptions.UnicodeWarning'>, 'execfile': <built-in function execfile>, '__package__': None, 'complex': <type 'complex'>, 'bool': <type 'bool'>, 'payloads': <module 'routersploit.payloads' from 'routersploit/payloads.pyc'>, 'BufferError': <type 'exceptions.BufferError'>, 'ValueError': <type 'exceptions.ValueError'>, 'NotImplemented': NotImplemented, 'map': <built-in function map>, 'printer': <module 'routersploit.printer' from 'routersploit/printer.pyc'>, 'ssh_interactive': <function ssh_interactive at 0x7fb791b2ede8>, 'any': <built-in function any>, 'max': <built-in function max>, 'object': <type 'object'>, 'TabError': <type 'exceptions.TabError'>, 'callable': <built-in function callable>, 'ZeroDivisionError': <type 'exceptions.ZeroDivisionError'>, 'eval': <built-in function eval>, 'boolify': <function boolify at 0x7fb791b2ed70>, 'ReferenceError': <type 'exceptions.ReferenceError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'classmethod': <type 'classmethod'>, 'modules': <module 'routersploit.modules' from 'routersploit/modules/__init__.pyc'>, 'print_table': <function print_table at 0x7fb791b2eb18>, 'NotImplementedError': <type 'exceptions.NotImplementedError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'OverflowError': <type 'exceptions.OverflowError'>}
->>> ls
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'ls' is not defined
->>> dir()
-['ArithmeticError', 'AssertionError', 'AttributeError', 'BaseException', 'BufferError', 'BytesWarning', 'DeprecationWarning', 'EOFError', 'Ellipsis', 'EnvironmentError', 'Exception', 'False', 'FloatingPointError', 'FutureWarning', 'GeneratorExit', 'IOError', 'ImportError', 'ImportWarning', 'IndentationError', 'IndexError', 'KeyError', 'KeyboardInterrupt', 'LockedIterator', 'LookupError', 'MemoryError', 'NameError', 'None', 'NotImplemented', 'NotImplementedError', 'OSError', 'OverflowError', 'PendingDeprecationWarning', 'ReferenceError', 'RuntimeError', 'RuntimeWarning', 'StandardError', 'StopIteration', 'SyntaxError', 'SyntaxWarning', 'SystemError', 'SystemExit', 'TabError', 'True', 'TypeError', 'UnboundLocalError', 'UnicodeDecodeError', 'UnicodeEncodeError', 'UnicodeError', 'UnicodeTranslateError', 'UnicodeWarning', 'UserWarning', 'ValueError', 'Warning', 'ZeroDivisionError', '__builtin__', '__builtins__', '__doc__', '__name__', '__package__', 'abs', 'all', 'any', 'apply', 'basestring', 'bin', 'bool', 'boolify', 'buffer', 'bytearray', 'bytes', 'callable', 'chr', 'classmethod', 'cmp', 'coerce', 'compile', 'complex', 'copyright', 'credits', 'delattr', 'dict', 'dir', 'divmod', 'enumerate', 'eval', 'exceptions', 'execfile', 'exit', 'exploits', 'file', 'filter', 'float', 'format', 'frozenset', 'getattr', 'globals', 'hasattr', 'hash', 'help', 'hex', 'http_request', 'id', 'index_modules', 'input', 'int', 'intern', 'interpreter', 'isinstance', 'issubclass', 'iter', 'len', 'license', 'list', 'locals', 'long', 'map', 'max', 'memoryview', 'min', 'modules', 'multi', 'mute', 'next', 'object', 'oct', 'open', 'ord', 'payloads', 'pow', 'print', 'print_error', 'print_info', 'print_status', 'print_success', 'print_table', 'printer', 'property', 'quit', 'random_text', 'range', 'raw_input', 'reduce', 'reload', 'repr', 'reversed', 'round', 'routersploit', 'sanitize_url', 'set', 'setattr', 'shell', 'slice', 'sorted', 'ssh_interactive', 'staticmethod', 'str', 'sum', 'super', 'tokenize', 'tuple', 'type', 'unichr', 'unicode', 'utils', 'validators', 'vars', 'wordlists', 'xrange', 'zip']
-['back', 'check', 'exec', 'exit', 'exploit', 'help', 'run', 'search', 'set', 'setg', 'show', 'unsetg', 'use']
 
- "<stdin>", line 1, in <module>
-TypeError: 'module' object is not callable
->>> dir(validators)
-['OptionValidationError', '__builtins__', '__doc__', '__file__', '__name__', '__package__', 'address', 'boolify', 'choice', 'convert_ip', 'convert_port', 'integer', 'ipv4', 'socket', 'strtobool', 'url', 'urlparse']
-"""
 
-Initialization of third-party libraries
+def parse_line(self, line):
+    """ Split line into command and argument.
 
-        Setting interpreter history.
-        Setting appropriate completer function.
+    :param line: line to parse
+    :return: (command, argument)
+    """
+    command, _, arg = line.strip().partition(" ")
+    return command, arg.strip()
 
-        :return:
+@property
+def prompt(self):
+    """ Returns prompt string """
+    return ">>>"
 
-    def parse_line(self, line):
-        """ Split line into command and argument.
+def get_command_handler(self, command):
+    """ Parsing command and returning appropriate handler.
 
-        :param line: line to parse
-        :return: (command, argument)
-        """
-        command, _, arg = line.strip().partition(" ")
-        return command, arg.strip()
+    :param command: command
+    :return: command_handler
+    """
+    try:
+        command_handler = getattr(self, "command_{}".format(command))
+    except AttributeError:
+        raise RoutersploitException("Unknown command: '{}'".format(command))
 
-    @property
-    def prompt(self):
-        """ Returns prompt string """
-        return ">>>"
+    return command_handler
 
-    def get_command_handler(self, command):
-        """ Parsing command and returning appropriate handler.
+def start(self):
+    """ Routersploit main entry point. Starting interpreter loop. """
 
-        :param command: command
-        :return: command_handler
-        """
+    utils.print_info(self.banner)
+    printer_queue.join()
+    while True:
         try:
-            command_handler = getattr(self, "command_{}".format(command))
-        except AttributeError:
-            raise RoutersploitException("Unknown command: '{}'".format(command))
+            command, args = self.parse_line(raw_input(self.prompt))
+            if not command:
+                continue
+            command_handler = self.get_command_handler(command)
+            command_handler(args)
+        except RoutersploitException as err:
+            utils.print_error(err)
+        except EOFError:
+            utils.print_info()
+            utils.print_status("routersploit stopped")
+            break
+        except KeyboardInterrupt:
+            utils.print_info()
+        finally:
+            printer_queue.join()
 
-        return command_handler
+def complete(self, text, state):
+    """Return the next possible completion for 'text'.
 
-    def start(self):
-        """ Routersploit main entry point. Starting interpreter loop. """
+    If a command has not been entered, then complete against command list.
+    Otherwise try to call complete_<command> to get list of completions.
+    """
+    if state == 0:
+        original_line = readline.get_line_buffer()
+        line = original_line.lstrip()
+        stripped = len(original_line) - len(line)
+        start_index = readline.get_begidx() - stripped
+        end_index = readline.get_endidx() - stripped
 
-        utils.print_info(self.banner)
-        printer_queue.join()
-        while True:
-            try:
-                command, args = self.parse_line(raw_input(self.prompt))
-                if not command:
-                    continue
-                command_handler = self.get_command_handler(command)
-                command_handler(args)
-            except RoutersploitException as err:
-                utils.print_error(err)
-            except EOFError:
-                utils.print_info()
-                utils.print_status("routersploit stopped")
-                break
-            except KeyboardInterrupt:
-                utils.print_info()
-            finally:
-                printer_queue.join()
-
-    def complete(self, text, state):
-        """Return the next possible completion for 'text'.
-
-        If a command has not been entered, then complete against command list.
-        Otherwise try to call complete_<command> to get list of completions.
-        """
-        if state == 0:
-            original_line = readline.get_line_buffer()
-            line = original_line.lstrip()
-            stripped = len(original_line) - len(line)
-            start_index = readline.get_begidx() - stripped
-            end_index = readline.get_endidx() - stripped
-
-            if start_index > 0:
-                cmd, args = self.parse_line(line)
-                if cmd == '':
-                    complete_function = self.default_completer
-                else:
-                    try:
-                        complete_function = getattr(self, 'complete_' + cmd)
-                    except AttributeError:
-                        complete_function = self.default_completer
+        if start_index > 0:
+            cmd, args = self.parse_line(line)
+            if cmd == '':
+                complete_function = self.default_completer
             else:
-                complete_function = self.raw_command_completer
+                try:
+                    complete_function = getattr(self, 'complete_' + cmd)
+                except AttributeError:
+                    complete_function = self.default_completer
+        else:
+            complete_function = self.raw_command_completer
 
-            self.completion_matches = complete_function(text, line, start_index, end_index)
+        self.completion_matches = complete_function(text, line, start_index, end_index)
 
-        try:
-            return self.completion_matches[state]
-        except IndexError:
-            return None
+    try:
+        return self.completion_matches[state]
+    except IndexError:
+        return None
 
     def commands(self, *ignored):
         """ Returns full list of interpreter commands.
@@ -200,16 +168,15 @@ class RoutersploitInterpreter(BaseInterpreter):
     use <module>                Select a module for usage
     exec <shell command> <args> Execute a command in a shell
     search <search term>        Search for appropriate module
-    exit                        Exit RouterSploit"""
-
-odule commands:
-    run                                 Run the selected module with the given options
-    back                                De-select the current module
-    set <option name> <option value>    Set an option for the selected module
-    setg <option name> <option value>   Set an option for all of the modules
-    unsetg <option name>                Unset option that was set globally
-    show [info|options|devices]         Print information, options, or target devices for a module
-    check                               Check if a given target is vulnerable to a selected module's exploit"""
+    exit                        Exit RouterSploit
+    module commands:
+        run                                 Run the selected module with the given options
+        back                                De-select the current module
+        set <option name> <option value>    Set an option for the selected module
+        setg <option name> <option value>   Set an option for all of the modules
+        unsetg <option name>                Unset option that was set globally
+        show [info|options|devices]         Print information, options, or target devices for a module
+        check                               Check if a given target is vulnerable to a selected module's exploit"""
 
     def __init__(self):
         super(RoutersploitInterpreter, self).__init__()
@@ -578,13 +545,15 @@ def routersploit_interpreter():
 
 def routersploit_ssh_interactive():
     return
-def screen_make_detach_session(processname):
 
-    bash_command("screen -dmS %s" % str(processname))
-    return bash_command
+# forget about screen because we can just subprocess module it and threading and pipe what we don't want to clutter screen into /dev/null
+# def screen_make_detach_session(processname):
+#
+#     bash_command("screen -dmS %s" % str(processname))
+#     return bash_command
 
-def screen_RSF_command = "interpreter.RoutersploitInterpreter().rundetached_session(process_name, process_number, subproc_name, cmd_exec):
-
+def screen_RSF_command(process_name, process_number, subproc_name, cmd_exec):
+    # = "interpreter.RoutersploitInterpreter().rundetached_session
 
 
     cmd = "Interpreter.RoutersploitInterpreter().commands({},{},{})".format((str(module_path),str(argsv_1),str(opt_argsv_2)))
@@ -623,6 +592,11 @@ def autorouter(target_router_ip):
         str(netmask),
         str(gateway)
     )
+
+
+
+    # should I really run it into routersploit shell?
+    # or should I only run it in background and print relevant info?
     BASH_arp_a = "interpreter.RoutersploitInterpreter().commands()arp -a"
     GREP_parse_new_Ips = "interpreter.RoutersploitInterpreter().commands()"
     screen_make_detach_session('netdiscover')
@@ -648,6 +622,17 @@ def autorouter(target_router_ip):
         gateway = str(target_router_ip).strip()
         netmask = str("255.255.255.0")
 
+
+        # forget this shit. It's overcomplicated, and relies on too much, we can just issue commands ourselves directly with the API
+        # write the api_to_cli module first. Import  that nas a custom library for the rest.
+
+
+        # furthermore the processes in rsf itself shjould be separated to
+        # brute forcers
+        # autopwn exploits
+        # reverse shells (require user input of public IP and LPORT)
+        # and all of this, needs to be customized BEFORE they deploy the rpi
+        # so we can use sed to edit the other python module
         screen_make_detach_session('autorouter')
         screen_RSF_command = "interpreter.RoutersploitInterpreter().rundetached_session('autorouter',0,'bash_cmd',BASH_auto_route)
         screen_RSF_command = "interpreter.RoutersploitInterpreter().rundetached_session('autorouter',0,'bash_cmd','route -n > new_routes.txt;ifconfig -a > new_routes.txt,nbtscan 0.0.0.0 > new_routes.txt')
@@ -917,56 +902,56 @@ def start routersploit():
                 ### END OF OFFICIAL ROUTERSPLOIT CODE ###
 
 
-    screen_make_detach_session('rsf')
-    screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',RSF_set_target)
-    target_port_list_http = [
-        '80',
-        '443',
-        '81',
-        '8080',
-        '22',
-        '23',
-        '445',
-        '139',
-        '25'
+        screen_make_detach_session('rsf')
+        screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',RSF_set_target)
+        target_port_list_http = [
+            '80',
+            '443',
+            '81',
+            '8080',
+            '22',
+            '23',
+            '445',
+            '139',
+            '25'
+            ]
+
+        target_port_front_page_list = [
+            'index.asp', 'index.html', 'login.html','admin.html'
         ]
 
-    target_port_front_page_list = [
-        'index.asp', 'index.html', 'login.html','admin.html'
-    ]
+        # directly attack router with routersploit
 
-    # directly attack router with routersploit
-
-    RSF_set_target = "interpreter.RoutersploitInterpreter().commands()set target %s" % str(target_router_ip)
-    screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',str(RSF_set_target))
-    for item in target_port_list_http:
-        target_port = item
-        RSF_set_port = "interpreter.RoutersploitInterpreter().commands()set port %s" % str(target_port)
-        screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',str(RSF_set_port))
-        screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn','run')
-        time.sleep(60)
+        RSF_set_target = "interpreter.RoutersploitInterpreter().commands()set target %s" % str(target_router_ip)
+        screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',str(RSF_set_target))
+        for item in target_port_list_http:
+            target_port = item
+            RSF_set_port = "interpreter.RoutersploitInterpreter().commands()set port %s" % str(target_port)
+            screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn',str(RSF_set_port))
+            screen_RSF_command = "interpreter.RoutersploitInterpreter()".rundetached_session('rsf',0,'autopwn','run')
+            time.sleep(60)
 
 
-    RSF_set_module = "interpreter.RoutersploitInterpreter().commands()".format(
-        str(
+        RSF_set_module = "interpreter.RoutersploitInterpreter().commands()".format(
+            str(
 
+            )
         )
-    )
-    cmd_curl_pull_page = "interpreter.RoutersploitInterpreter()".commands().curl -O % str(possible_url)
-    cmd_GET_RSF_command = "interpreter.RoutersploitInterpreter()".commands()GET %s % str(possible_url)
+        cmd_curl_pull_page = "interpreter.RoutersploitInterpreter()".commands().curl -O % str(possible_url)
+        cmd_GET_RSF_command = "interpreter.RoutersploitInterpreter()".commands()GET %s % str(possible_url)
 
-    for item in target_port_list_http:
-        target_port = item
-        for url in target_port_front_page_list:
-            possible_url = "interpreter.RoutersploitInterpreter().commands()"
-            cmd = "interpreter.RoutersploitInterpreter().commands()" % str(possible_url)
-            bash_RSF_command = (cmd)
-            cmd = "interpreter.RoutersploitInterpreter().commands()%s %s" % (str(cmd_curl_pull_page), str(possible_url))
+        for item in target_port_list_http:
+            target_port = item
+            for url in target_port_front_page_list:
+                possible_url = "interpreter.RoutersploitInterpreter().commands()"
+                cmd = "interpreter.RoutersploitInterpreter().commands()" % str(possible_url)
+                bash_RSF_command = (cmd)
+                cmd = "interpreter.RoutersploitInterpreter().commands()%s %s" % (str(cmd_curl_pull_page), str(possible_url))
 
 
-    # in case nothing gets done, attempt direectory traversal.
+        # in case nothing gets done, attempt direectory traversal.
 
-    nmap_directory_traversal()
+        nmap_directory_traversal()
 
 
     return
