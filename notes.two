@@ -1,0 +1,1104 @@
+That was much faster than I thouight.
+
+Creating line feed queues to operate routersploit remotely.
+
+Command seems to be more reliable if not ebtter than actually trying to interact with the RSF CLI legitimately through function calls and importing methods.
+#### command self completion module. It helps make the commands decipherable
+
+def complete(self, text, state):
+       """Return the next possible completion for 'text'.
+
+       If a command has not been entered, then complete against command list.
+       Otherwise try to call complete_<command> to get list of completions.
+       """
+       if state == 0:
+           original_line = readline.get_line_buffer()
+           line = original_line.lstrip()
+           stripped = len(original_line) - len(line)
+           start_index = readline.get_begidx() - stripped
+           end_index = readline.get_endidx() - stripped
+
+           if start_index > 0:
+               cmd, args = self.parse_line(line)
+               if cmd == '':
+                   complete_function = self.default_completer
+               else:
+                   try:
+                       complete_function = getattr(self, 'complete_' + cmd)
+                   except AttributeError:
+                       complete_function = self.default_completer
+           else:
+               complete_function = self.raw_command_completer
+
+           self.completion_matches = complete_function(text, line, start_index, end_index)
+
+       try:
+           return self.completion_matches[state]
+       except IndexError:
+           return None
+
+   def commands(self, *ignored):
+       """ Returns full list of interpreter commands.
+
+       :param ignored:
+       :return: full list of interpreter commands    """
+       return [command.rsplit("_").pop() for command in dir(self) if command.startswith("command_")]
+
+   def raw_command_completer(self, text, line, start_index, end_index):
+       """ Complete command w/o any argument """
+       return filter(lambda entry: entry.startswith(text), self.suggested_commands())
+
+   def default_completer(self, *ignored):
+       return []
+
+   def suggested_commands(self):
+       """ Entry point for intelligent tab completion.
+       Overwrite this method to suggest suitable commands.
+       :return: list of suitable commands
+       """
+       return self.commands()
+
+
+ ########### Hex key cipher revealed. Not sure while its pretty much a static value. Or its unicode representing spaces (HTML-speak)
+
+ for module in self.modules:
+    if keyword in module:
+        module = utils.humanize_path(module)
+        utils.print_info(
+            "{}\033[31m{}\033[0m{}".format(*module.partition(keyword))
+        )
+
+
+
+############### import line. YOu need to import all of this when using passive CLI injection ################
+
+from routersploit.utils import (
+print_error,
+print_status,
+print_success,
+print_table,
+print_info,
+sanitize_url,
+LockedIterator,
+random_text,
+http_request,
+boolify,
+mute,
+multi,
+index_modules,
+ssh_interactive,
+tokenize,
+)
+
+from routersploit import exploits
+from routersploit import payloads
+from routersploit import wordlists
+from routersploit import validators
+from routersploit.shell import shell
+
+###  CUSTOM COMMAND. Discovered new options that enabled me to directly inject python statements into RSF.
+import interpreter
+from interpreter import * ############ VITAL! Otherwise you cannot access the engine that processes human input into their shell syntax
+from shell import *
+import importlib
+from importlib import *
+
+#### the reaosnw hy you cannot directly __dict__ the modules path is because there is no INIT line!. Those files are empty actually.
+BaseHTTPServer       module                        <module 'BaseHTTPServer' <...>n2.7/BaseHTTPServer.pyc'>
+
+#### this is the reverse shell generator + listener
+Communication        type                          <class 'shell.Communication'>
+
+
+HttpRequestHandler   classobj                      shell.HttpRequestHandler
+HttpServer           classobj                      shell.HttpServer
+SimpleHTTPServer     module                        <module 'SimpleHTTPServer<...>.7/SimpleHTTPServer.pyc'>
+exploits             module                        <module 'routersploit.exp<...>utersploit/exploits.pyc'>
+importlib            module                        <module 'importlib' from <...>/importlib/__init__.pyc'>
+isfile               function                      <function isfile at 0x7f7a76a06f50>
+join                 function                      <function join at 0x7f7a769cff50>
+listdir              builtin_function_or_method    <built-in function listdir>
+payloads             module                        <module 'routersploit.pay<...>utersploit/payloads.pyc'>
+print_error          function                      <function print_error at 0x7f7a638ef578>
+print_info           function                      <function print_info at 0x7f7a638ef6e0>
+print_status         function                      <function print_status at 0x7f7a638ef5f0>
+print_success        function                      <function print_success at 0x7f7a638ef668>
+print_table          function                      <function print_table at 0x7f7a638efb18>
+printer_queue        Queue.Queue                   <Queue.Queue instance at 0x7f7a63822368>
+random_text          function                      <function random_text at 0x7f7a638efc80>
+routersploit         module                        <module 'routersploit' fr<...>utersploit/__init__.pyc'>
+shell                function                      <function shell at 0x7f7a6386af50>
+socket               module                        <module 'socket' from '/u<...>ib/python2.7/socket.pyc'>
+telnetlib            module                        <module 'telnetlib' from <...>python2.7/telnetlib.pyc'>
+threading            module                        <module 'threading' from <...>python2.7/threading.pyc'>
+threads              module                        <module 'routersploit.thr<...>routersploit/threads.py'>
+time                 module                        <module 'time' (built-in)>
+utils                module                        <module 'routersploit.uti<...>loit/utils/__init__.pyc'>
+validators           module                        <module 'routersploit.val<...>ersploit/validators.pyc'>
+wordlists            module                        <module 'routersploit.wor<...>/wordlists/__init__.pyc'>
+
+
+#### For every one of the modules. you also needed to import this crqazy shit. IT helps in getting the ungraspable modules back. But we just want to reach their custom shel since we can easily learn their syntax.
+
+
+from __future__ import absolute_import
+from os import path
+from routersploit import *
+
+from routersploit import (exploits,print_error,print_success,print_status,print_info,utils,threads)
+
+### at this point you shoudl ahve the ability to directly access your interpreter from the root of the installation directory.
+
+RoutersploitInterpreter.parse_line.__init__ ##activate command line mode. Python style.
+RoutersploitInterpreter.command_use.__name__
+self = "routersploit/interpreter"
+
+In [107]: RoutersploitInterpreter.parse_line.__init__
+Out[107]: <method-wrapper '__init__' of instancemethod object at 0x7f7a638f96e0>
+
+In [108]: RoutersploitInterpreter.parse_line.im_func.func_dict
+Out[108]: {}
+
+In [109]: RoutersploitInterpreter.parse_line.im_func.__dict__
+Out[109]: {}
+
+In [110]: RoutersploitInterpreter.parse_line.im_func("show options")
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-110-d225859fd2e1> in <module>()
+----> 1 RoutersploitInterpreter.parse_line.im_func("show options")
+
+TypeError: parse_line() takes exactly 2 arguments (1 given)
+
+In [111]: RoutersploitInterpreter.parse_line.im_func(self, "show options")
+Out[111]: ('show', 'options')
+routersploit.exploits.ExploitOptionsAggregator.__init__
+RoutersploitInterpreter.command_set(RoutersploitInterpreter,"10.0.1.1")
+self = RoutersploitInterpreter
+RoutersploitInterpreter.command_set(self,"10.0.1.1")
+self.command_set(self,"10.0.1.1")
+self.command_set(RoutersploitInterpreter,"10.0.1.1")
+self.command_set(exploits.Option,"10.0.1.1")
+self.command_set()
+RoutersploitInterpreter.command_set(exploits.Autopwn))
+routersploit.exploits.__name__ = "autopwn"
+routersploit.exploits.Option('10.0.1.1','')
+routersploit.exploits.Option(80,'')
+exploits.Exploit.__init__
+exploits.__init__
+autopwn(run)
+exploits(run)
+exploits.run()
+exploits.__init__
+run(exploits)
+run(Exploit)
+run(Exploit).__doc__
+run(Exploit).__dict__
+run.Exploit.__dict__
+Exploit.run.__dict__
+Exploit.run
+Exploit.run()
+Exploit.run(autopwn)
+Exploit.run('autopwn')
+Exploit.run(Exploit)
+autopwn.run(Exploit)
+'autopwn'.run(Exploit)
+__name__.run(Exploit)
+__module__.run(Exploit)
+exploits.run(Exploit)
+%history
+n [247]: self.command_run()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-247-9335b7f60db6> in <module>()
+----> 1 self.command_run()
+
+TypeError: unbound method command_run() must be called with RoutersploitInterpreter instance as first argument (got nothing instead)
+
+In [248]: self
+Out[248]: interpreter.RoutersploitInterpreter
+
+In [249]: exploits
+Out[249]: <module 'autopwn' from 'routersploit/exploits.pyc'>
+
+In [250]: class
+  File "<ipython-input-250-5ef9dc4cb34b>", line 1
+    class
+         ^
+SyntaxError: invalid syntax
+interpreter.RoutersploitInterpreter().__init__
+ RoutersploitInterpreter.command_run.im_self
+
+
+ n [288]: exploits.print_status.func_globals
+Out[288]:
+{'ABCMeta': abc.ABCMeta,
+ 'CREDS_DIR': 'routersploit/modules/creds',
+ 'DummyFile': routersploit.utils.DummyFile,
+ 'EXPLOITS_DIR': 'routersploit/modules/exploits',
+ 'LockedIterator': routersploit.utils.LockedIterator,
+ 'MODULES_DIR': 'routersploit/modules',
+ 'NonStringIterable': routersploit.utils.NonStringIterable,
+ 'PrintResource': routersploit.utils.PrintResource,
+ 'Resource': routersploit.utils.Resource,
+ 'RoutersploitException': routersploit.exceptions.RoutersploitException,
+ 'SCANNERS_DIR': 'routersploit/modules/scanners',
+ '__builtins__': {'ArithmeticError': ArithmeticError,
+  'AssertionError': AssertionError,
+  'AttributeError': AttributeError,
+  'BaseException': BaseException,
+  'BufferError': BufferError,
+  'BytesWarning': BytesWarning,
+  'DeprecationWarning': DeprecationWarning,
+  'EOFError': EOFError,
+  'Ellipsis': Ellipsis,
+  'EnvironmentError': EnvironmentError,
+  'Exception': Exception,
+  'False': False,
+  'FloatingPointError': FloatingPointError,
+  'FutureWarning': FutureWarning,
+  'GeneratorExit': GeneratorExit,
+  'IOError': IOError,
+  'ImportError': ImportError,
+  'ImportWarning': ImportWarning,
+  'IndentationError': IndentationError,
+  'IndexError': IndexError,
+  'KeyError': KeyError,
+  'KeyboardInterrupt': KeyboardInterrupt,
+  'LookupError': LookupError,
+  'MemoryError': MemoryError,
+  'NameError': NameError,
+  'None': None,
+  'NotImplemented': NotImplemented,
+  'NotImplementedError': NotImplementedError,
+  'OSError': OSError,
+  'OverflowError': OverflowError,
+  'PendingDeprecationWarning': PendingDeprecationWarning,
+  'ReferenceError': ReferenceError,
+  'RuntimeError': RuntimeError,
+  'RuntimeWarning': RuntimeWarning,
+  'StandardError': StandardError,
+  'StopIteration': StopIteration,
+  'SyntaxError': SyntaxError,
+  'SyntaxWarning': SyntaxWarning,
+  'SystemError': SystemError,
+  'SystemExit': SystemExit,
+  'TabError': TabError,
+  'True': True,
+  'TypeError': TypeError,
+  'UnboundLocalError': UnboundLocalError,
+  'UnicodeDecodeError': UnicodeDecodeError,
+  'UnicodeEncodeError': UnicodeEncodeError,
+  'UnicodeError': UnicodeError,
+  'UnicodeTranslateError': UnicodeTranslateError,
+  'UnicodeWarning': UnicodeWarning,
+  'UserWarning': UserWarning,
+  'ValueError': ValueError,
+  'Warning': Warning,
+  'ZeroDivisionError': ZeroDivisionError,
+  '__IPYTHON__': True,
+  '__debug__': True,
+  '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.",
+  '__import__': <function __import__>,
+  '__name__': '__builtin__',
+  '__package__': None,
+  'abs': <function abs>,
+  'all': <function all>,
+  'any': <function any>,
+  'apply': <function apply>,
+  'basestring': basestring,
+  'bin': <function bin>,
+  'bool': bool,
+  'buffer': buffer,
+  'bytearray': bytearray,
+  'bytes': str,
+  'callable': <function callable>,
+  'chr': <function chr>,
+  'classmethod': classmethod,
+  'cmp': <function cmp>,
+  'coerce': <function coerce>,
+  'compile': <function compile>,
+  'complex': complex,
+  'copyright': Copyright (c) 2001-2017 Python Software Foundation.
+  All Rights Reserved.
+
+  Copyright (c) 2000 BeOpen.com.
+  All Rights Reserved.
+
+  Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+  All Rights Reserved.
+
+  Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+  All Rights Reserved.,
+  'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+      for supporting Python development.  See www.python.org for more information.,
+  'delattr': <function delattr>,
+  'dict': dict,
+  'dir': <function dir>,
+  'display': <function IPython.core.display.display>,
+  'divmod': <function divmod>,
+  'dreload': <function IPython.lib.deepreload._dreload>,
+  'enumerate': enumerate,
+  'eval': <function eval>,
+  'execfile': <function execfile>,
+  'file': file,
+  'filter': <function filter>,
+  'float': float,
+  'format': <function format>,
+  'frozenset': frozenset,
+  'get_ipython': <bound method TerminalInteractiveShell.get_ipython of <IPython.terminal.interactiveshell.TerminalInteractiveShell object at 0x7f7a72645d50>>,
+  'getattr': <function getattr>,
+  'globals': <function globals>,
+  'hasattr': <function hasattr>,
+  'hash': <function hash>,
+  'help': Type help() for interactive help, or help(object) for help about object.,
+  'hex': <function hex>,
+  'id': <function id>,
+  'input': <function input>,
+  'int': int,
+  'intern': <function intern>,
+  'isinstance': <function isinstance>,
+  'issubclass': <function issubclass>,
+  'iter': <function iter>,
+  'len': <function len>,
+  'license': Type license() to see the full license text,
+  'list': list,
+  'locals': <function locals>,
+  'long': long,
+  'map': <function map>,
+  'max': <function max>,
+  'memoryview': memoryview,
+  'min': <function min>,
+  'next': <function next>,
+  'object': object,
+  'oct': <function oct>,
+  'open': <function open>,
+  'ord': <function ord>,
+  'pow': <function pow>,
+  'print': <function print>,
+  'property': property,
+  'range': <function range>,
+  'raw_input': <function raw_input>,
+  'reduce': <function reduce>,
+  'reload': <function reload>,
+  'repr': <function repr>,
+  'reversed': reversed,
+  'round': <function round>,
+  'set': set,
+  'setattr': <function setattr>,
+  'slice': slice,
+  'sorted': <function sorted>,
+  'staticmethod': staticmethod,
+  'str': str,
+  'sum': <function sum>,
+  'super': super,
+  'tuple': tuple,
+  'type': type,
+  'unichr': <function unichr>,
+  'unicode': unicode,
+  'vars': <function vars>,
+  'xrange': xrange,
+  'zip': <function zip>},
+ '__cprint': <function routersploit.utils.__cprint>,
+ '__doc__': None,
+ '__file__': 'routersploit/utils/__init__.pyc',
+ '__name__': 'routersploit.utils',
+ '__package__': 'routersploit.utils',
+ '__path__': ['routersploit/utils'],
+ 'absolute_import': _Feature((2, 5, 0, 'alpha', 1), (3, 0, 0, 'alpha', 0), 16384),
+ 'abstractmethod': <function abc.abstractmethod>,
+ 'boolify': <function routersploit.utils.boolify>,
+ 'collections': <module 'collections' from '/usr/lib/python2.7/collections.pyc'>,
+ 'colors': {'blue': 34,
+  'cyan': 36,
+  'green': 32,
+  'grey': 30,
+  'magenta': 35,
+  'red': 31,
+  'white': 37,
+  'yellow': 33},
+ 'create_exploit': <function routersploit.utils.create_exploit>,
+ 'create_resource': <function routersploit.utils.create_resource>,
+ 'errno': <module 'errno' (built-in)>,
+ 'http_request': <function routersploit.utils.http_request>,
+ 'humanize_path': <function routersploit.utils.humanize_path>,
+ 'import_exploit': <function routersploit.utils.import_exploit>,
+ 'importlib': <module 'importlib' from '/usr/lib/python2.7/importlib/__init__.pyc'>,
+ 'index_modules': <function routersploit.utils.index_modules>,
+ 'iter_modules': <function routersploit.utils.iter_modules>,
+ 'mkdir_p': <function routersploit.utils.mkdir_p>,
+ 'module_required': <function routersploit.utils.module_required>,
+ 'multi': <function routersploit.utils.multi>,
+ 'mute': <function routersploit.utils.mute>,
+ 'os': <module 'os' from '/usr/lib/python2.7/os.pyc'>,
+ 'posix_shell': <function routersploit.utils.posix_shell>,
+ 'pprint_dict_in_order': <function routersploit.utils.pprint_dict_in_order>,
+ 'print_error': <function routersploit.utils.print_error>,
+ 'print_function': _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536),
+ 'print_info': <function routersploit.utils.print_info>,
+ 'print_lock': <thread.lock at 0x7f7a63f35910>,
+ 'print_status': <function routersploit.utils.print_status>,
+ 'print_success': <function routersploit.utils.print_success>,
+ 'print_table': <function routersploit.utils.print_table>,
+ 'printer_queue': <Queue.Queue instance at 0x7f7a638cfc20>,
+ 'pythonize_path': <function routersploit.utils.pythonize_path>,
+ 'random': <module 'random' from '/usr/lib/python2.7/random.pyc'>,
+ 'random_text': <function routersploit.utils.random_text>,
+ 're': <module 're' from '/usr/lib/python2.7/re.pyc'>,
+ 'requests': <module 'requests' from '/usr/lib/python2.7/dist-packages/requests/__init__.pyc'>,
+ 'rsf_modules': <module 'routersploit.modules' from 'routersploit/modules/__init__.pyc'>,
+ 'sanitize_url': <function routersploit.utils.sanitize_url>,
+ 'select': <module 'select' (built-in)>,
+ 'socket': <module 'socket' from '/usr/lib/python2.7/socket.pyc'>,
+ 'ssh_interactive': <function routersploit.utils.ssh_interactive>,
+ 'stop_after': <function routersploit.utils.stop_after>,
+ 'string': <module 'string' from '/usr/lib/python2.7/string.pyc'>,
+ 'strtobool': <function distutils.util.strtobool>,
+ 'sys': <module 'sys' (built-in)>,
+ 'thread_output_stream': <WeakKeyDictionary at 140163632921704>,
+ 'threading': <module 'threading' from '/usr/lib/python2.7/threading.pyc'>,
+ 'tokenize': <function routersploit.utils.tokenize>,
+ 'windows_shell': <function routersploit.utils.windows_shell>,
+ 'wraps': <function functools.wraps>}
+
+In [289]:
+exploits.Exploit.run_threads.im_self
+In [327]: print_table.func_globals
+Out[327]:
+{'ABCMeta': abc.ABCMeta,
+ 'CREDS_DIR': 'routersploit/modules/creds',
+ 'DummyFile': routersploit.utils.DummyFile,
+ 'EXPLOITS_DIR': 'routersploit/modules/exploits',
+ 'LockedIterator': routersploit.utils.LockedIterator,
+ 'MODULES_DIR': 'routersploit/modules',
+ 'NonStringIterable': routersploit.utils.NonStringIterable,
+ 'PrintResource': routersploit.utils.PrintResource,
+ 'Resource': routersploit.utils.Resource,
+ 'RoutersploitException': routersploit.exceptions.RoutersploitException,
+ 'SCANNERS_DIR': 'routersploit/modules/scanners',
+ '__builtins__': {'ArithmeticError': ArithmeticError,
+  'AssertionError': AssertionError,
+  'AttributeError': AttributeError,
+  'BaseException': BaseException,
+  'BufferError': BufferError,
+  'BytesWarning': BytesWarning,
+  'DeprecationWarning': DeprecationWarning,
+  'EOFError': EOFError,
+  'Ellipsis': Ellipsis,
+  'EnvironmentError': EnvironmentError,
+  'Exception': Exception,
+  'False': False,
+  'FloatingPointError': FloatingPointError,
+  'FutureWarning': FutureWarning,
+  'GeneratorExit': GeneratorExit,
+  'IOError': IOError,
+  'ImportError': ImportError,
+  'ImportWarning': ImportWarning,
+  'IndentationError': IndentationError,
+  'IndexError': IndexError,
+  'KeyError': KeyError,
+  'KeyboardInterrupt': KeyboardInterrupt,
+  'LookupError': LookupError,
+  'MemoryError': MemoryError,
+  'NameError': NameError,
+  'None': None,
+  'NotImplemented': NotImplemented,
+  'NotImplementedError': NotImplementedError,
+  'OSError': OSError,
+  'OverflowError': OverflowError,
+  'PendingDeprecationWarning': PendingDeprecationWarning,
+  'ReferenceError': ReferenceError,
+  'RuntimeError': RuntimeError,
+  'RuntimeWarning': RuntimeWarning,
+  'StandardError': StandardError,
+  'StopIteration': StopIteration,
+  'SyntaxError': SyntaxError,
+  'SyntaxWarning': SyntaxWarning,
+  'SystemError': SystemError,
+  'SystemExit': SystemExit,
+  'TabError': TabError,
+  'True': True,
+  'TypeError': TypeError,
+  'UnboundLocalError': UnboundLocalError,
+  'UnicodeDecodeError': UnicodeDecodeError,
+  'UnicodeEncodeError': UnicodeEncodeError,
+  'UnicodeError': UnicodeError,
+  'UnicodeTranslateError': UnicodeTranslateError,
+  'UnicodeWarning': UnicodeWarning,
+  'UserWarning': UserWarning,
+  'ValueError': ValueError,
+  'Warning': Warning,
+  'ZeroDivisionError': ZeroDivisionError,
+  '__IPYTHON__': True,
+  '__debug__': True,
+  '__doc__': "Built-in functions, exceptions, and other objects.\n\nNoteworthy: None is the `nil' object; Ellipsis represents `...' in slices.",
+  '__import__': <function __import__>,
+  '__name__': '__builtin__',
+  '__package__': None,
+  'abs': <function abs>,
+  'all': <function all>,
+  'any': <function any>,
+  'apply': <function apply>,
+  'basestring': basestring,
+  'bin': <function bin>,
+  'bool': bool,
+  'buffer': buffer,
+  'bytearray': bytearray,
+  'bytes': str,
+  'callable': <function callable>,
+  'chr': <function chr>,
+  'classmethod': classmethod,
+  'cmp': <function cmp>,
+  'coerce': <function coerce>,
+  'compile': <function compile>,
+  'complex': complex,
+  'copyright': Copyright (c) 2001-2017 Python Software Foundation.
+  All Rights Reserved.
+
+  Copyright (c) 2000 BeOpen.com.
+  All Rights Reserved.
+
+  Copyright (c) 1995-2001 Corporation for National Research Initiatives.
+  All Rights Reserved.
+
+  Copyright (c) 1991-1995 Stichting Mathematisch Centrum, Amsterdam.
+  All Rights Reserved.,
+  'credits':     Thanks to CWI, CNRI, BeOpen.com, Zope Corporation and a cast of thousands
+      for supporting Python development.  See www.python.org for more information.,
+  'delattr': <function delattr>,
+  'dict': dict,
+  'dir': <function dir>,
+  'display': <function IPython.core.display.display>,
+  'divmod': <function divmod>,
+  'dreload': <function IPython.lib.deepreload._dreload>,
+  'enumerate': enumerate,
+  'eval': <function eval>,
+  'execfile': <function execfile>,
+  'file': file,
+  'filter': <function filter>,
+  'float': float,
+  'format': <function format>,
+  'frozenset': frozenset,
+  'get_ipython': <bound method TerminalInteractiveShell.get_ipython of <IPython.terminal.interactiveshell.TerminalInteractiveShell object at 0x7f7a72645d50>>,
+  'getattr': <function getattr>,
+  'globals': <function globals>,
+  'hasattr': <function hasattr>,
+  'hash': <function hash>,
+  'help': Type help() for interactive help, or help(object) for help about object.,
+  'hex': <function hex>,
+  'id': <function id>,
+  'input': <function input>,
+  'int': int,
+  'intern': <function intern>,
+  'isinstance': <function isinstance>,
+  'issubclass': <function issubclass>,
+  'iter': <function iter>,
+  'len': <function len>,
+  'license': Type license() to see the full license text,
+  'list': list,
+  'locals': <function locals>,
+  'long': long,
+  'map': <function map>,
+  'max': <function max>,
+  'memoryview': memoryview,
+  'min': <function min>,
+  'next': <function next>,
+  'object': object,
+  'oct': <function oct>,
+  'open': <function open>,
+  'ord': <function ord>,
+  'pow': <function pow>,
+  'print': <function print>,
+  'property': property,
+  'range': <function range>,
+  'raw_input': <function raw_input>,
+  'reduce': <function reduce>,
+  'reload': <function reload>,
+  'repr': <function repr>,
+  'reversed': reversed,
+  'round': <function round>,
+  'set': set,
+  'setattr': <function setattr>,
+  'slice': slice,
+  'sorted': <function sorted>,
+  'staticmethod': staticmethod,
+  'str': str,
+  'sum': <function sum>,
+  'super': super,
+  'tuple': tuple,
+  'type': type,
+  'unichr': <function unichr>,
+  'unicode': unicode,
+  'vars': <function vars>,
+  'xrange': xrange,
+  'zip': <function zip>},
+ '__cprint': <function routersploit.utils.__cprint>,
+ '__doc__': None,
+ '__file__': 'routersploit/utils/__init__.pyc',
+ '__name__': 'routersploit.utils',
+ '__package__': 'routersploit.utils',
+ '__path__': ['routersploit/utils'],
+ 'absolute_import': _Feature((2, 5, 0, 'alpha', 1), (3, 0, 0, 'alpha', 0), 16384),
+ 'abstractmethod': <function abc.abstractmethod>,
+ 'boolify': <function routersploit.utils.boolify>,
+ 'collections': <module 'collections' from '/usr/lib/python2.7/collections.pyc'>,
+ 'colors': {'blue': 34,
+  'cyan': 36,
+  'green': 32,
+  'grey': 30,
+  'magenta': 35,
+  'red': 31,
+  'white': 37,
+  'yellow': 33},
+ 'create_exploit': <function routersploit.utils.create_exploit>,
+ 'create_resource': <function routersploit.utils.create_resource>,
+ 'errno': <module 'errno' (built-in)>,
+ 'http_request': <function routersploit.utils.http_request>,
+ 'humanize_path': <function routersploit.utils.humanize_path>,
+ 'import_exploit': <function routersploit.utils.import_exploit>,
+ 'importlib': <module 'importlib' from '/usr/lib/python2.7/importlib/__init__.pyc'>,
+ 'index_modules': <function routersploit.utils.index_modules>,
+ 'iter_modules': <function routersploit.utils.iter_modules>,
+ 'mkdir_p': <function routersploit.utils.mkdir_p>,
+ 'module_required': <function routersploit.utils.module_required>,
+ 'multi': <function routersploit.utils.multi>,
+ 'mute': <function routersploit.utils.mute>,
+ 'os': <module 'os' from '/usr/lib/python2.7/os.pyc'>,
+ 'posix_shell': <function routersploit.utils.posix_shell>,
+ 'pprint_dict_in_order': <function routersploit.utils.pprint_dict_in_order>,
+ 'print_error': <function routersploit.utils.print_error>,
+ 'print_function': _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536),
+ 'print_info': <function routersploit.utils.print_info>,
+ 'print_lock': <thread.lock at 0x7f7a63f35910>,
+ 'print_status': <function routersploit.utils.print_status>,
+ 'print_success': <function routersploit.utils.print_success>,
+ 'print_table': <function routersploit.utils.print_table>,
+ 'printer_queue': <Queue.Queue instance at 0x7f7a638cfc20>,
+ 'pythonize_path': <function routersploit.utils.pythonize_path>,
+ 'random': <module 'random' from '/usr/lib/python2.7/random.pyc'>,
+ 'random_text': <function routersploit.utils.random_text>,
+ 're': <module 're' from '/usr/lib/python2.7/re.pyc'>,
+ 'requests': <module 'requests' from '/usr/lib/python2.7/dist-packages/requests/__init__.pyc'>,
+ 'rsf_modules': <module 'routersploit.modules' from 'routersploit/modules/__init__.pyc'>,
+ 'sanitize_url': <function routersploit.utils.sanitize_url>,
+ 'select': <module 'select' (built-in)>,
+ 'socket': <module 'socket' from '/usr/lib/python2.7/socket.pyc'>,
+ 'ssh_interactive': <function routersploit.utils.ssh_interactive>,
+ 'stop_after': <function routersploit.utils.stop_after>,
+ 'string': <module 'string' from '/usr/lib/python2.7/string.pyc'>,
+ 'strtobool': <function distutils.util.strtobool>,
+ 'sys': <module 'sys' (built-in)>,
+ 'thread_output_stream': <WeakKeyDictionary at 140163632921704>,
+ 'threading': <module 'threading' from '/usr/lib/python2.7/threading.pyc'>,
+ 'tokenize': <function routersploit.utils.tokenize>,
+ 'windows_shell': <function routersploit.utils.windows_shell>,
+ 'wraps': <function functools.wraps>}
+
+ In [328]: print sys.stdout
+ <open file '<stdout>', mode 'w' at 0x7f7a76a65150>
+
+ In [329]: print sys.stdout.encoding
+ UTF-8
+
+ In [330]: print sys.stdout.errors
+ None
+
+ In [331]: print sys.stdout.write
+ <built-in method write of file object at 0x7f7a76a65150>
+
+ In [332]:
+ File "<ipython-input-361-f1f872f94147>", line 1
+    interpreter.RoutersploitInterpreter.command_run.im_self.()
+                                                            ^
+SyntaxError: invalid syntax
+
+
+In [362]: interpreter.RoutersploitInterpreter.command_run.im_self
+
+In [363]: interpreter.RoutersploitInterpreter.command_run.im_self.__init__
+Out[363]: <method-wrapper '__init__' of NoneType object at 0x5653f0c74ea0>
+
+In [364]: interpreter.RoutersploitInterpreter.command_run.im_self.__repr__
+Out[364]: <method-wrapper '__repr__' of NoneType object at 0x5653f0c74ea0>
+
+In [365]: interpreter.RoutersploitInterpreter.command_run.im_self.__getattribute__
+Out[365]: <method-wrapper '__getattribute__' of NoneType object at 0x5653f0c74ea0>
+
+In [366]: interpreter.RoutersploitInterpreter.command_run.im_self.__str__
+Out[366]: <method-wrapper '__str__' of NoneType object at 0x5653f0c74ea0>
+
+In [367]: interpreter.RoutersploitInterpreter.command_run.im_self.__subclasshook__
+Out[367]: <function __subclasshook__>
+
+In [368]: interpreter.RoutersploitInterpreter.command_run.im_self
+
+In [369]: print_status
+Out[369]: <function routersploit.utils.print_status>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################### LINE FEED ########################
+
+
+RoutersploitInterpreter.command_use('scanners/autopwn')
+RoutersploitInterpreter.command_use.(__import__)
+RoutersploitInterpreter.command_use.(__name__) = "autopwn"
+RoutersploitInterpreter.__init__
+RoutersploitInterpreter.parse_line(line="use scanners/autopwn")
+RoutersploitInterpreter(parse_line(line="use scanners/autopwn"))
+RoutersploitInterpreter((line="use scanners/autopwn"))
+RoutersploitInterpreter.parse_line("use scanners/autopwn")
+RoutersploitInterpreter.parse_line(__init__)
+RoutersploitInterpreter.parse_line()
+RoutersploitInterpreter.parse_line
+RoutersploitInterpreter.parse_line.__init__
+RoutersploitInterpreter.parse_line.("use scanners/autopwn")
+RoutersploitInterpreter.parse_line."use scanners/autopwn"
+RoutersploitInterpreter.parse_line.(line="use scanners/autopwn")
+RoutersploitInterpreter.parse_line("use scanners/autopwn")
+self.parse_line("use scanners/autopwn")
+RoutersploitInterpreter.parse_line.im_self
+RoutersploitInterpreter.parse_line(line="scanners/autopwn")
+RoutersploitInterpreter.parse_linewho
+who RoutersploitInterpreter.parse_linewho
+whos RoutersploitInterpreter.parse_linewho
+whos RoutersploitInterpreter.parse_linewho?
+whos RoutersploitInterpreter.parse_linewho???
+whos RoutersploitInterpreter.command_show.im_func
+whos RoutersploitInterpreter.command_show.im_func()
+whos RoutersploitInterpreter.command_show()
+whos RoutersploitInterpreter.command_show.im_self
+whos RoutersploitInterpreter.command_use.__"scanners/autopwn"__
+RoutersploitInterpreter.command_use.__"scanners/autopwn"__
+RoutersploitInterpreter.command_use.("scanners/autopwn")
+RoutersploitInterpreter.command_use("scanners/autopwn")
+self.interpreter.command_use("scanners/autopwn")
+self = "routersploit/interpreter"
+self.interpreter.command_use("scanners/autopwn")
+command_use("scanners/autopwn")
+command_use(self, "scanners/autopwn")
+who
+whos
+RoutersploitInterpreter.command_search('autopwn')
+RoutersploitInterpreter.command_search."autopwn"
+RoutersploitInterpreter.command_search.__"autopwn"__
+RoutersploitInterpreter.command_search.__dict__
+RoutersploitInterpreter.command_search.__name__
+RoutersploitInterpreter.command_search.__modules__
+RoutersploitInterpreter.command_use.__name__
+RoutersploitInterpreter.command_use.scanners.autopwn
+RoutersploitInterpreter.command_use.scanners.__dir__
+RoutersploitInterpreter.command_use.scanners.dir()
+def parse_line(self, line):
+    cmd, args = self.parse_line(line
+
+
+    )
+    )
+def parse_line(self, line):
+    cmd, args = self.parse_line(line)
+    line = "use scanners/autopwn"
+    )
+ cmd, args = self.interpreter.parse_line("show options")
+ cmd, args = RoutersploitInterpreter.interpreter.parse_line("show options")
+ cmd, args = RoutersploitInterpreter..parse_line("show options")
+ cmd, args = RoutersploitInterpreter.parse_line("show options")
+ cmd, args = RoutersploitInterpreter.parse_line."show options"
+ cmd, args = RoutersploitInterpreter.parse_line("show options")
+RoutersploitInterpreter.parse_line("show options")
+RoutersploitInterpreter.parse_line("show options")
+RoutersploitInterpreter.parse_line.__init__
+RoutersploitInterpreter.parse_line.im_func.func_dict
+RoutersploitInterpreter.parse_line.im_func.__dict__
+RoutersploitInterpreter.parse_line.im_func("show options")
+RoutersploitInterpreter.parse_line.im_func(self, "show options")
+RoutersploitInterpreter.parse_line.im_func(self, "use scanners/autopwn")
+who
+self.interpreter.command_set('target {}'.format("10.0.1.1"))
+RoutersploitInterpreter.interpreter.command_set('target {}'.format("10.0.1.1"))
+RoutersploitInterpreter.command_set('target {}'.format("10.0.1.1"))
+RoutersploitInterpreter.command_set.('target {}'.format("10.0.1.1"))
+RoutersploitInterpreter.command_set.'target {}'.format("10.0.1.1"))
+RoutersploitInterpreter.command_set.__format__.("10.0.1.1")
+RoutersploitInterpreter.command_set.__format__."10.0.1.1"
+RoutersploitInterpreter.command_set.__str__."10.0.1.1"
+RoutersploitInterpreter.command_set.__str__("10.0.1.1")
+RoutersploitInterpreter.command_str("10.0.1.1")
+RoutersploitInterpreter.command_set.im_self("10.0.1.1)
+RoutersploitInterpreter.command_set.im_self("10.0.1.1")
+RoutersploitInterpreter.command_set.im_self(str("10.0.1.1"))
+RoutersploitInterpreter.command_set.im_self."10.0.1.1"
+RoutersploitInterpreter.command_set.(im_self."10.0.1.1")
+RoutersploitInterpreter.command_set(im_self."10.0.1.1")
+RoutersploitInterpreter.command_set(im_self,"10.0.1.1")
+RoutersploitInterpreter.command_set(RoutersploitInterpreter,"10.0.1.1")
+self = RoutersploitInterpreter
+RoutersploitInterpreter.command_set(self,"10.0.1.1")
+self.command_set(self,"10.0.1.1")
+self.command_set(RoutersploitInterpreter,"10.0.1.1")
+self.command_set(exploits.Option,"10.0.1.1")
+self.command_set()
+RoutersploitInterpreter.command_set(exploits.Autopwn))
+RoutersploitInterpreter.command_set(exploits.Autopwn, "10.0.1.1")
+RoutersploitInterpreter.command_set(exploits.autopwn, "10.0.1.1")
+RoutersploitInterpreter.command_set(exploits.__name__, "10.0.1.1")
+RoutersploitInterpreter.command_set(exploits.__dict__, "10.0.1.1")
+RoutersploitInterpreter.command_set(exploits.__self__, "10.0.1.1")
+RoutersploitInterpreter.command_set('target {}', "10.0.1.1")
+RoutersploitInterpreter.command_set(RoutersploitInterpreter, "10.0.1.1")
+RoutersploitInterpreter.command_set("10.0.1.1")
+RoutersploitInterpreter.command_set(10.0.1.1)
+RoutersploitInterpreter.command_set.im_self.10.0.1.1
+RoutersploitInterpreter.command_set.im_self.10.0.1.1
+RoutersploitInterpreter.command_set.im_self.(10.0.1.1)
+RoutersploitInterpreter.command_set.im_self.(10.0.1.1)
+RoutersploitInterpreter.command_set.im_self.args
+RoutersploitInterpreter.command_set.im_self.target
+RoutersploitInterpreter.command_set.im_self."10.0.1.1"0
+RoutersploitInterpreter.command_set.im_self."10.0.1.1"
+RoutersploitInterpreter.command_set.im_self.10.0.1.1
+RoutersploitInterpreter.command_set.im_self."10.0.1.1"%automagic.
+RoutersploitInterpreter.command_set.im_self."10.0.1.1.
+RoutersploitInterpreter.command_set.im_self.locals
+whos
+routersploit.exploits.ExploitOptionsAggregator.__init__
+%history
+routersploit.exploits.__name__ = "autopwn"
+whos
+routersploit.exploits.Option('10.0.1.1','')
+routersploit.exploits.Option('80','')
+routersploit.exploits.Option(80,'')
+routersploit.exploits.Option(8,'')
+routersploit.exploits.Exploit.run
+routersploit.exploits.Exploit.run()
+routersploit.exploits.Exploit.run(autopwn,))
+routersploit.exploits.Exploit.run(autopwn))
+routersploit.exploits.Exploit.run(autopwn)
+routersploit.exploits.Exploit.run(AutoPwn)
+wehos
+whos
+routersploit.exploits.Exploit.run(self)
+routersploit.exploits.Exploit.run(Exploit)
+routersploit.exploits.Exploit.__name__)
+routersploit.exploits.Exploit.__name__
+routersploit.exploits.Exploit.run(Exploit)
+run(Exploit)
+routersploit.exploits.(Exploit)
+routersploit.exploits.run(Exploit)
+routersploit.exploits.Exploit.run(exploit.Exploit)
+routersploit.exploits.Exploit.run(autopwn.Exploit)
+routersploit.exploits.Exploit.run(AutoPwn.Exploit)
+routersploit.exploits.Exploit.run(.Exploit)
+routersploit.exploits.Exploit.run(scanners.Exploit)
+routersploit.exploits.Exploit.run()
+routersploit.exploitsrun()
+routersploit.exploits.Exploit.run()
+routersploit.exploits.Exploit.run(self)
+routersploit.exploits.Exploit.run()
+routersploit.exploits.Exploit.run(exploit.Exploit)
+routersploit.exploits.Exploit.run(__name__.Exploit)
+routersploit.exploits.Exploit.run(__exploit__.Exploit)
+routersploit.exploits.Exploit.run(__module__.Exploit)
+routersploit.exploits.Exploit.run(exploits.Exploit.__init__)
+exploits.Exploit.__init__
+exploits.Exploit.run()
+run(exploits.Exploit)
+run(exploits.autopwn)
+run()
+exploits)
+exploits.__name__
+exploits.Exploit.__name__
+run(autopwn.Exploit)
+run(autopwn)
+run(Exploit)
+autopwn.Exploit(run)
+autopwn(run)
+exploits(run)
+exploits.run()
+exploits.__init__
+run(exploits)
+run(Exploit)
+run(Exploit).__doc__
+run(Exploit).__dict__
+run.Exploit.__dict__
+Exploit.run.__dict__
+Exploit.run
+Exploit.run()
+Exploit.run(autopwn)
+Exploit.run('autopwn')
+Exploit.run(Exploit)
+autopwn.run(Exploit)
+'autopwn'.run(Exploit)
+__name__.run(Exploit)
+__module__.run(Exploit)
+exploits.run(Exploit)
+%history
+__name__
+__main__
+who
+self
+interpreter.RoutersploitInterpreter.command_run
+interpreter.RoutersploitInterpreter.command_run()
+interpreter.RoutersploitInterpreter.command_run()
+self
+self.command_run()
+self.command_run(autopwn.Exploit)
+self.command_run(autopwn)
+self.command_run(exploits.Exploit))
+self.command_run(exploits.Exploit)
+self.command_run(exploits.Exploit)
+self.command_run()
+self
+exploits
+class
+interpreter.RoutersploitInterpreter.run()
+interpreter.RoutersploitInterpreter(exploits.Exploit)
+interpreter.RoutersploitInterpreter(exploits.Exploit).__init__()
+interpreter.RoutersploitInterpreter(autopwn).__init__()
+interpreter.RoutersploitInterpreter(Exploit).__init__()
+interpreter.RoutersploitInterpreter(Exploit).__init__
+interpreter.RoutersploitInterpreter(Exploit).__init__.()
+interpreter.RoutersploitInterpreter(Exploit).__init__
+interpreter.RoutersploitInterpreter(Exploit).__init__
+interpreter.RoutersploitInterpreter().__init__
+interpreter.RoutersploitInterpreter().run
+interpreter.RoutersploitInterpreter().run()
+interpreter.RoutersploitInterpreter().run(Exploit!)
+interpreter.RoutersploitInterpreter().run(Exploit)
+interpreter.RoutersploitInterpreter(run)
+interpreter.RoutersploitInterpreter().command_run()
+interpreter.RoutersploitInterpreter.run()
+interpreter.RoutersploitInterpreter.command_run
+interpreter.RoutersploitInterpreter.command_run()
+interpreter.RoutersploitInterpreter.command_run(Exploit)
+RoutersploitInterpreter.command_run()
+RoutersploitInterpreter.command_run(self))
+RoutersploitInterpreter.command_run(self)
+RoutersploitInterpreter.command_run(Exploit))
+RoutersploitInterpreter.command_run(Exploit)
+RoutersploitInterpreter.command_run(exploits)
+RoutersploitInterpreter.command_run(rsf)
+RoutersploitInterpreter.command_run(run)
+RoutersploitInterpreter.command_run.im_self
+RoutersploitInterpreter.command_run.im_self
+RoutersploitInterpreter.command_run.im_self()
+RoutersploitInterpreter.command_run.im_self
+whos
+RoutersploitInterpreter.history_file
+RoutersploitInterpreter.history_file.decode
+exploits.print_status
+exploits.print_status()
+exploits.print_status.func_globals
+exploits.run()
+exploits.Exploit.run
+exploits.Exploit.run()
+exploits.Exploit.run_threads
+exploits.Exploit.run_threads()
+exploits.Exploit.run_threads.autopwn
+exploits.Exploit.run_threads.autopwn()
+exploits.Exploit.run_threads.im_self
+whos
+self.command_check
+self.command_check()
+self.module_metadata
+self.prompt
+self.prompt.getter
+self.history_file
+self.history_file.translate
+self.history_file.index
+self.history_file.index()
+self.module_metadata()
+screen -r
+"screen -r"
+self.module_metadata()
+self.history_file.count
+self.history_file.count()
+self.history_file.count(basestring)
+self.history_file.count(results)
+self.history_file.count(PrinterThread)
+print_info
+print_info()
+print_status()
+print_success()
+print_error()
+print_table()
+print_table(headers=))
+print_table(headers=)
+print_table(headers='')
+print_table(headers=)all
+print_table(headers=all)
+print_table.func_globals
+print sys.stdout
+print sys.stdout.encoding
+print sys.stdout.errors
+print sys.stdout.write
+print response
+exploits.Exploit.check()
+exploits.Exploit.check())
+exploits.Exploit.check()
+exploits.Exploit.check(Exploit)
+exploits.Exploit.check('autopwn')
+exploits.Exploit.check(exploits)
+exploits.Exploit.check(self)
+exploits.Exploit.check(autopwn.Exploit))
+exploits.Exploit.check(autopwn.Exploit)
+exploits.Exploit.check(__name__))
+exploits.Exploit.check(__name__)
+assert_called_once_with()s
+assert_called_once_with()
+self.assert_called_once_with()
+self.assert_called_once_with
+self.interpreter.command_run()
+interpreter.RoutersploitInterpreter.command_run()
+interpreter.RoutersploitInterpreter.command_run(exploit.Exploit))
+interpreter.RoutersploitInterpreter.command_run(exploit.Exploit)
+interpreter.RoutersploitInterpreter.command_run(autopwn.Exploit)
+interpreter.RoutersploitInterpreter.command_run.im_self
+interpreter.RoutersploitInterpreter.command_run.im_self()
+interpreter.RoutersploitInterpreter.command_run.im_self(exploits.Exploit)
+interpreter.RoutersploitInterpreter.command_run.im_self(self)
+interpreter.RoutersploitInterpreter.command_run.im_self()
+interpreter.RoutersploitInterpreter.command_run.im_self.()
+interpreter.RoutersploitInterpreter.command_run.im_self
+interpreter.RoutersploitInterpreter.command_run.im_self
+interpreter.RoutersploitInterpreter.command_run.im_self.()
+interpreter.RoutersploitInterpreter.command_run.im_self
+interpreter.RoutersploitInterpreter.command_run.im_self.__init__
+interpreter.RoutersploitInterpreter.command_run.im_self.__repr__
+interpreter.RoutersploitInterpreter.command_run.im_self.__getattribute__
+interpreter.RoutersploitInterpreter.command_run.im_self.__str__
+interpreter.RoutersploitInterpreter.command_run.im_self.__subclasshook__
+interpreter.RoutersploitInterpreter.command_run.im_self
+print_status
+print_status.func_globals
+print_status.func_closure
+print_status.func_code
+print_status.func_defaults
+print_status.func_doc
+print_status.func_dict
+print_status.__cprint
+print_status.ALL
+print_status.all
+print_info
+print_info.func_code
+print_info.func_code.co_argcount
+print_info.func_code.co_argcount.real
+print_info.func_code.co_names
+%history

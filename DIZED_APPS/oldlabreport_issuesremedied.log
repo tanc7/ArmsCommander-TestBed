@@ -1,0 +1,77 @@
+CONSPIRATORS AMONG US
+
+Raspberry Pi
+*Auto wifi connect works
+*Remember to set the boot/before script to reset wireless interfaces back to standard wlan# format
+*Have issues properly logging data from routersploit api but it appears to work proeprly.
+Components
+  1. Routersploit backbone + API + CLI
+    needs testing
+    display needs to get fixed
+      find a way to pipe output out of RSF or find a way to create a duplicate pipe or edit the rsf main file to make sure it autowrites to a log file first (using sed)
+  2. WPA supplicant COMPLETE
+    active
+  3. Root access by booting
+    needs testing
+  4. Root access for user
+    needs testing
+  5. aircrack suite COMPLETE
+    needs implementation from ArmsCommander
+  6. besside-ng COMPLETE
+  7. Fix for the wifi interface rename issue from RPI
+    Needs testing
+
+DickForge
+  1. Password cracker
+    complete. Including the binaries for 3 attack methods
+  2. wpa_supplicant.conf creds generator and installer
+    need to refurbish old unfinished backup
+  3. Automation features
+    complete
+  4. Disk scanner for *.cap files
+
+Growing-PAINS
+  1. Metasploit autofuzzers
+  2. Other fuzzers on apt repo
+  3. Crash event log parser
+  4. Various build your own malware toolkits
+  5. SSL transports
+  6. Pupy
+  7. DarkComet
+  8. Mirai
+
+Black-Chanting Grows
+  1. Every APT available tunneling method
+  2. Application of the tunneling methods in my course on Udemy
+  3.
+
+Sunspear
+  1. Suricata
+  2. Snort
+  3. Fail2ban
+  4. Ubuntu firewalls
+  5. IP Tables
+  6. Log parser
+  7. IDS collaboration rules
+  8. SIEM
+
+Need to create autoconnect script generator with the desired template file.
+
+
+I lost a lot of work when my main program, for the wifi auto routersploit mysteriously crashed from a ipython import.
+
+Including the source modules for the autoreconnect thing. I created a installer for it too.
+
+However, in my frustration i foudn out the code for routersploit is for the most part unusable. but there are several methods to reproduce something close to the result.
+
+1. Binary Injection method, either you manually edit the routersploit code, or you use a sed command to "inject" and modify the routersploit source code in several modules to allow it to let you give it direct commands through a normal CLI.
+
+2. CLI Injection method, instead of touching and corrupting or breaking teh RSF code, you can interface with it using teh Python shell. However its really difficult to figure out the source code's syntax, although at one point I managed to successfully inject commands using the RoutersploitInterpreter's command_{action} syntax. WE need to rediscover that method somehow, but it basically involves a full importing process from both the first and second routersploit modules.
+
+3. Reverse engineering method. THis will take longer but we have a firm understanding of how the code works anyways. WE can then work around the initial source's drawbacks. Particularly, it's extremely difficult to use proprietary design, rushed coding methods, and reliance on external modules to fix it's drawbacks.
+
+4. Patch up method. Since we managed to alter the binaries, all we have to do is fix whatever is wrong with the threading modules, or disable it, and it'll be good to go. It can definitely accept commands. It just refuses to execute them beause of somethingw rong wtih the syntax. THe useful of multiple threads is actually not that important when what really matters is getting the rpi into range and allowing it to boot up and go to work. 
+
+
+5. The Threaded PRocess method. RSF and the threading modules are altered far beyond its original design making integration with our command injector impossible. A workaround is to create a separate threaded process that does not interfere using methods such as SCREEN or TMUX. This can be executed right from the bootup process as something completely separate. And it will gradually parse and log all of the gateway IPs that the rpi receives and have the RSF framework read and parse it.
+

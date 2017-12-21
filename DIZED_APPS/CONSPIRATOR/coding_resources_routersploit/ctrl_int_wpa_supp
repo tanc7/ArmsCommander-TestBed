@@ -1,1 +1,0 @@
-/sbin/wpa_supplicant -u -s -O /run/wpa_supplicant

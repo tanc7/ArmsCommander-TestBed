@@ -1,8 +1,0 @@
-CONSPIRATORS AMONG US
-
-Raspberry Pi
-*Auto wifi connect works
-*Remember to set the boot/before script to reset wireless interfaces back to standard wlan# format
-*Have issues properly logging data from routersploit api but it appears to work proeprly.
-
-Need to create autoconnect script generator with the desired template file.

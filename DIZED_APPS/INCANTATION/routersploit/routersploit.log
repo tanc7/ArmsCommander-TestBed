@@ -1,0 +1,15 @@
+2017-12-21 06:32:56,268 ERROR routersploit.routersploit.exceptions       Unknown command: 'ls'
+Traceback (most recent call last):
+  File "/root/Documents/ArmsCommander-TestBed/DIZED_APPS/INCANTATION/routersploit/routersploit/interpreter.py", line 73, in get_command_handler
+    command_handler = getattr(self, "command_{}".format(command))
+AttributeError: 'RoutersploitInterpreter' object has no attribute 'command_ls'
+2017-12-21 06:32:58,932 ERROR routersploit.routersploit.exceptions       Unknown command: 'ls'
+Traceback (most recent call last):
+  File "/root/Documents/ArmsCommander-TestBed/DIZED_APPS/INCANTATION/routersploit/routersploit/interpreter.py", line 73, in get_command_handler
+    command_handler = getattr(self, "command_{}".format(command))
+AttributeError: 'RoutersploitInterpreter' object has no attribute 'command_ls'
+2017-12-21 06:32:59,809 ERROR routersploit.routersploit.exceptions       Unknown command: 'ls'
+Traceback (most recent call last):
+  File "/root/Documents/ArmsCommander-TestBed/DIZED_APPS/INCANTATION/routersploit/routersploit/interpreter.py", line 73, in get_command_handler
+    command_handler = getattr(self, "command_{}".format(command))
+AttributeError: 'RoutersploitInterpreter' object has no attribute 'command_ls'

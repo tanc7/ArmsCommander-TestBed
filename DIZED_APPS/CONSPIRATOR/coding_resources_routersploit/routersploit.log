@@ -1,5 +1,0 @@
-2017-12-19 02:31:38,186 ERROR routersploit.exceptions       Unknown command: 'ls'
-Traceback (most recent call last):
-  File "/usr/local/bin/routersploit/interpreter.py", line 73, in get_command_handler
-    command_handler = getattr(self, "command_{}".format(command))
-AttributeError: 'RoutersploitInterpreter' object has no attribute 'command_ls'

@@ -1,0 +1,6 @@
+#     def command_set(self, *args, **kwargs):
+#     def command_setg(self, *args, **kwargs):
+#         self.command_set(*args, **kwargs)
+#     def command_set(self, *args, **kwargs):
+#     def command_setg(self, *args, **kwargs):
+#         self.command_set(*args, **kwargs)

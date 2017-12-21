@@ -1,0 +1,23 @@
+[loggers]
+keys=root
+disable_existing_loggers=False
+logging.config.fileConfig(disable_existing_loggers=False)
+[handlers]
+keys=consoleHandler
+
+[formatters]
+keys=simpleFormatter
+
+
+[logger_root]
+level=INFO
+handlers=consoleHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+args=(sys.stderr,)
+level=INFO
+formatter=simpleFormatter
+
+[formatter_simpleFormatter]
+format=%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(asctime)s - %(message)s args - %(filename)s - %(funcName)s - %(levelname)s - %(module)s msg %(pathname)s - %(processName)s - %(relativeCreated)d %(thread)d

@@ -16,20 +16,20 @@ We use the term daemonzied because we implement a combination of open and propri
 </li></ul>
 
 to adopt the characteristics of...
-<ol><li>  All of the basic traits of a APT (Advanced Persistent Threat characteristics), whose goal is to maintain access rather than the typical "in-and-out exfiltration plan"
-</li><li>  to have the malware retain some degree of "autonomy"
-</li><li>  and some degree of "invulnerability" (e.g. fork itself to evade destruction by antivirus, firewalls, IDS/IPS, heuristic scanners and can repeatedly regenerate itself from "actual deaths" by becoming a actual UNIX Daemon)
-</li><li>  and some degree of "self-sufficiency" (e.g. capable of performing rudimentary fuzz-testing)
-</li><li>  and some degree of "evolution" by stress-induced response (e.g. the malware is aware that there are no known documented vulnerabilities that it can exploit and it must discover a vulnerability on it's own accord. It will begin fuzz-testing and attempt to replicate "Proof-of-Concept" code into copies of itself, test that PoC, and report back to it's master)
-</li><li>  obviously a FULL degree of "stealth-and-obfuscation-options". This means, it should be capable of producing a complete client process of ANY known tunneling protocol, standalone, wrapped, encapsulated, known and unknown. (e.g. SSH tunneling, UDP tunneling, DNS tunneling, virtual, SSL, UDP-over-TCP, VPN-over-SSH, TCP-over-SOCKS, TCP-over-HTTPS)
-</li><li>  In order to have a better chance at evading the Intrusion Detection System after we already snuck past it's Ingress Filtering Rules, Intrusion Prevention System, killed the Anti-Virus, compromised the Firewall, Escalated Privileges to ROOT/SYSTEM, established Persistence, Compromised Patching Systems, Pivoted to it's neighbors in the Internal Network.
-</li><li>  And to always "maintain a advantage against the White Hats"*
+<ol><li>  <b>All of the basic traits of a APT (Advanced Persistent Threat characteristics)</b>, whose goal is to maintain access rather than the typical "in-and-out exfiltration plan"
+</li><li>  to have the malware retain some degree of <b>"autonomy"</b>
+</li><li>  <b>and some degree of "invulnerability"</b> (e.g. fork itself to evade destruction by antivirus, firewalls, IDS/IPS, heuristic scanners and can repeatedly regenerate itself from "actual deaths" by becoming a actual UNIX Daemon)
+</li><li>  <b>and some degree of "self-sufficiency"</b> (e.g. capable of performing rudimentary fuzz-testing)
+</li><li>  <b>and some degree of "evolution" by stress-induced response</b> (e.g. the malware is aware that there are no known documented vulnerabilities that it can exploit and it must discover a vulnerability on it's own accord. It will begin fuzz-testing and attempt to replicate "Proof-of-Concept" code into copies of itself, test that PoC, and report back to it's master)
+</li><li>  <b>obviously a FULL degree of "stealth-and-obfuscation-options".</b> This means, it should be capable of producing a complete client process of ANY known tunneling protocol, standalone, wrapped, encapsulated, known and unknown. (e.g. SSH tunneling, UDP tunneling, DNS tunneling, virtual, SSL, UDP-over-TCP, VPN-over-SSH, TCP-over-SOCKS, TCP-over-HTTPS)
+</li><li>  <b>In order to have a better chanc</b>e at evading the Intrusion Detection System after we already snuck past it's Ingress Filtering Rules, Intrusion Prevention System, killed the Anti-Virus, compromised the Firewall, Escalated Privileges to ROOT/SYSTEM, established Persistence, Compromised Patching Systems, Pivoted to it's neighbors in the Internal Network.
+</li><li>  And to always <b>"maintain a advantage against the White Hats"*</b>
 </li></ol>
 *I am only saying this to refer to the Blue Team in a penetration test.
 
 <h4>Current Projects
 </h4>
-<h4>NOT STARTED:"GROWING-PAINS":
+<h4>STARTED DEVELOPMENT:"GROWING-PAINS":
 </h4>  Automated Internal Fuzzing Service & "Zero-Day Discovery Tool" & Primative Proof-of-Concept Generator. Portable Malware Version & Client.
 
 <h4>NOT STARTED:"EBOLAIDS":
@@ -37,7 +37,7 @@ to adopt the characteristics of...
 
   It functions as the server in the relationship between the emergent malware and itself and provides a means of communication and job allocation for the malware.
 
-<h4>DEVELOPMENT STAGE**:"CONSPIRATORS":
+<h4>DEVELOPMENT STAGE**:"INCANTATION":
 </h4>  Automated Wireless Handshake-Capturing and Post-Exploitation Toolkit. WPA2-PSK and WPA2-MGT/ENT.
 
 <p>  As of 12/19/17, the planned release next-year contains several portions, a Routersploit backbone(https://github.com/reverse-shell/routersploit), a modified API-to-CLI interface, credential parser, integration with other tools such as wpa_supplicant, wicd_curses/wicd_cli, rsf, dotdotpwn, metasploit scripts, and customized options catered specifically for the $30 Raspberry Pi micro-computer(https://www.raspberrypi.org/products/), which is the intended host of this toolkit.

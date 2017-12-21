@@ -1,6 +1,0 @@
-PATH=/home/pi:/usr/local/bin:/usr/bin:/sbin:/bin:/usr/sbin
-@reboot service ssh restart
-@reboot /bin/sh /home/pi/add_pi_network.sh
-@reboot python /home/pi/homepidir/rpi_custom_main.py >> /tmp/wardriving.log
-@reboot ifconfig wlan0 up
-@reboot ifconfig wlan1 up

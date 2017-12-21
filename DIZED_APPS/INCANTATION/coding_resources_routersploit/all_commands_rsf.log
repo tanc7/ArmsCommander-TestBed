@@ -1,0 +1,15 @@
+#     def command_back(self, *args, **kwargs):
+#     def command_use(self, module_path, *args, **kwargs):
+#     def command_run(self, *args, **kwargs):
+#     def command_exploit(self, *args, **kwargs):
+#         self.command_run()
+#     def command_set(self, *args, **kwargs):
+#     def command_setg(self, *args, **kwargs):
+#         self.command_set(*args, **kwargs)
+#     def command_unsetg(self, *args, **kwargs):
+#     def command_show(self, *args, **kwargs):
+#     def command_check(self, *args, **kwargs):
+#     def command_help(self, *args, **kwargs):
+#     def command_exec(self, *args, **kwargs):
+#     def command_search(self, *args, **kwargs):
+#     def command_exit(self, *args, **kwargs):

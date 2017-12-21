@@ -1,0 +1,42 @@
+6:00am approximately. December 21st 2017
+
+After spending about a week, we finally got the INCANTATION automated raspberry pi working. 
+
+A few notes though...
+
+1. IT will not output readable human letters from the command console prompt. It is avisable to NOT rely on the current version unless you know how to fix the problem. And why not contribute some help to us? ;)
+
+2. In order to have it work side-by-side with Routersploit, you must download a fresh copy of routersploit from Github, OR, you can use the premade lab directory here. /root/Documents/ArmsCommander-TestBed/DIZED_APPS/INCANTATION/routersploit
+
+3. Keep the file current_command_injector.py in the FIRST top-level-root directory of the entire routersploit package. It REQUIRES interaction with rsf.py and including every Routersploit module in the directory. Otherwise, if you executed command injector outside of Routersploit, it will NOT be able to import the necessary packages that it needs to interact with Routersploit Framework.
+
+4. You also need to copy the contents of routersploit into a PATH directory. The script is designed to clone itself into a PATH directory with the RSF files in hand so it can kick your Pi into overdrive.
+
+	Assume that your RSF folder is /root/Documents/routersploit
+	
+ "cp -r /root/Documents/routersploit/* /usr/local/bin" <--- note the star at the end of routersploit/ but not at /usr/local/bin
+
+
+But you may freely execute the current command injector in your original folder if you want. 
+
+	"python ./current_command_injector.py"
+
+It automatically detects connected networks and launches a cloned version of itself that does nothing else but inject commands into routersploit.
+
+WE are planning to better flesh out this script and fix the bugs that come from working effectively blind. We are also planning to integrate other popular penetration testing tools to run as threaded processes. The intent is that the user of this toolkit is going to construct a $100 pentesting "dropbox" and plan to safely leave behind their Pi with INCANTATION installed within a close but safe location (safe from detection and theft). By the time the six hours have elapsed, then the Pi should have collected enough creds behind the NAT to permit you to start phishing with MANA toolkit and other nasty bugs, like payload-dropping Wi-Fi phisher. 
+
+
+
+If you guys wanted some "Remote Control Capabilities". That goal is already within your grasp. It's called a "reverse-shell" :)
+
+All you had to do, is generate two sets of payloads.
+
+	a. One SSL-Encrypted payload from Metasploit or Pupy. Pointing back to your listener IP address with the certs preinstalled.
+	b. One additional less secure payload that still connects back to your C2, but is intended to perform post-exploitation techniques to capture and exfiltration data.
+
+
+Payload A is your Pi-Controller payload.
+
+Payload B is your Attack payload
+
+Both of these shells are just piggybacking on your victim's network to connect back to you, bypassing most firewalls. But it sure wont evade a IDS or IPS, and definitely not whitelisting. Spend a bit of time planning out how to make your payload but recycle them and your listeners frequently to make sure your IPs change.
