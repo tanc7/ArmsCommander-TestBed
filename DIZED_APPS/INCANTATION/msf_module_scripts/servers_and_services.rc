@@ -1,0 +1,121 @@
+ auxiliary/admin/backupexec/registry                                          normal  Veritas Backup Exec Server Registry Access
+   auxiliary/admin/dns/dyn_dns_update                                           normal  DNS Server Dynamic Update Record Injection
+   auxiliary/admin/http/hp_web_jetadmin_exec                   2004-04-27       normal  HP Web JetAdmin 6.5 Server Arbitrary Command Execution
+   auxiliary/admin/http/webnms_cred_disclosure                 2016-07-04       normal  WebNMS Framework Server Credential Disclosure
+   auxiliary/admin/http/webnms_file_download                   2016-07-04       normal  WebNMS Framework Server Arbitrary Text File Download
+   auxiliary/admin/ms/ms08_059_his2006                         2008-10-14       normal  Microsoft Host Integration Server 2006 Command Execution Vulnerability
+   auxiliary/admin/mssql/mssql_enum                                             normal  Microsoft SQL Server Configuration Enumerator
+   auxiliary/admin/mssql/mssql_enum_domain_accounts                             normal  Microsoft SQL Server SUSER_SNAME Windows Domain Account Enumeration
+   auxiliary/admin/mssql/mssql_enum_domain_accounts_sqli                        normal  Microsoft SQL Server SQLi SUSER_SNAME Windows Domain Account Enumeration
+   auxiliary/admin/mssql/mssql_enum_sql_logins                                  normal  Microsoft SQL Server SUSER_SNAME SQL Logins Enumeration
+   auxiliary/admin/mssql/mssql_escalate_dbowner                                 normal  Microsoft SQL Server Escalate Db_Owner
+   auxiliary/admin/mssql/mssql_escalate_dbowner_sqli                            normal  Microsoft SQL Server SQLi Escalate Db_Owner
+   auxiliary/admin/mssql/mssql_escalate_execute_as                              normal  Microsoft SQL Server Escalate EXECUTE AS
+   auxiliary/admin/mssql/mssql_escalate_execute_as_sqli                         normal  Microsoft SQL Server SQLi Escalate Execute AS
+   auxiliary/admin/mssql/mssql_exec                                             normal  Microsoft SQL Server xp_cmdshell Command Execution
+   auxiliary/admin/mssql/mssql_findandsampledata                                normal  Microsoft SQL Server Find and Sample Data
+   auxiliary/admin/mssql/mssql_idf                                              normal  Microsoft SQL Server Interesting Data Finder
+   auxiliary/admin/mssql/mssql_ntlm_stealer                                     normal  Microsoft SQL Server NTLM Stealer
+   auxiliary/admin/mssql/mssql_ntlm_stealer_sqli                                normal  Microsoft SQL Server SQLi NTLM Stealer
+   auxiliary/admin/mssql/mssql_sql                                              normal  Microsoft SQL Server Generic Query
+   auxiliary/admin/mssql/mssql_sql_file                                         normal  Microsoft SQL Server Generic Query from File
+   auxiliary/admin/postgres/postgres_readfile                                   normal  PostgreSQL Server Generic Query
+   auxiliary/admin/postgres/postgres_sql                                        normal  PostgreSQL Server Generic Query
+   auxiliary/admin/serverprotect/file                                           normal  TrendMicro ServerProtect File Access
+   auxiliary/admin/zend/java_bridge                            2011-03-28       normal  Zend Server Java Bridge Design Flaw Remote Code Execution
+   auxiliary/dos/misc/ibm_tsm_dos                              2015-12-15       normal  IBM Tivoli Storage Manager FastBack Server Opcode 0x534 Denial of Service
+   auxiliary/dos/scada/d20_tftp_overflow                       2012-01-19       normal  General Electric D20ME TFTP Server Buffer Overflow DoS
+   auxiliary/dos/scada/igss9_dataserver                        2011-12-20       normal  7-Technologies IGSS 9 IGSSdataServer.exe DoS
+   auxiliary/dos/windows/ftp/filezilla_admin_user              2005-11-07       normal  FileZilla FTP Server Admin Interface Denial of Service
+   auxiliary/dos/windows/ftp/filezilla_server_port             2006-12-11       normal  FileZilla FTP Server Malformed PORT Denial of Service
+   auxiliary/dos/windows/ftp/iis75_ftpd_iac_bof                2010-12-21       normal  Microsoft IIS FTP Server Encoded Response Overflow Trigger
+   auxiliary/dos/windows/ftp/iis_list_exhaustion               2009-09-03       normal  Microsoft IIS FTP Server LIST Stack Exhaustion
+   auxiliary/dos/windows/ftp/solarftp_user                     2011-02-22       normal  Solar FTP Server Malformed USER Denial of Service
+   auxiliary/dos/windows/ftp/titan626_site                     2008-10-14       normal  Titan FTP Server 6.26.630 SITE WHO DoS
+   auxiliary/dos/windows/ftp/vicftps50_list                    2008-10-24       normal  Victory FTP Server 5.0 LIST DoS
+   auxiliary/dos/windows/ftp/xmeasy560_nlst                    2008-10-13       normal  XM Easy Personal FTP Server 5.6.0 NLST DoS
+   auxiliary/dos/windows/ftp/xmeasy570_nlst                    2009-03-27       normal  XM Easy Personal FTP Server 5.7.0 NLST DoS
+   auxiliary/dos/windows/games/kaillera                        2011-07-02       normal  Kaillera 0.86 Server Denial of Service
+   auxiliary/dos/windows/smb/ms10_006_negotiate_response_loop                   normal  Microsoft Windows 7 / Server 2008 R2 SMB Client Infinite Loop
+   auxiliary/dos/windows/ssh/sysax_sshd_kexchange              2013-03-17       normal  Sysax Multi-Server 6.10 SSHD Key Exchange Denial of Service
+   auxiliary/dos/windows/tftp/pt360_write                      2008-10-29       normal  PacketTrap TFTP Server 2.2.5459.0 DoS
+   auxiliary/dos/windows/tftp/solarwinds                       2010-05-21       normal  SolarWinds TFTP Server 10.4.0.10 Denial of Service
+   auxiliary/gather/darkcomet_filedownloader                   2012-10-08       normal  DarkComet Server Remote File Download Exploit
+   auxiliary/gather/trackit_sql_domain_creds                   2014-10-07       normal  BMC / Numara Track-It! Domain Administrator and SQL Server User Password Disclosure
+   auxiliary/gather/xbmc_traversal                             2012-11-04       normal  XBMC Web Server Directory Traversal
+   auxiliary/scanner/afp/afp_server_info                                        normal  Apple Filing Protocol Info Enumerator
+   auxiliary/scanner/ftp/bison_ftp_traversal                   2015-09-28       normal  BisonWare BisonFTP Server 3.5 Directory Traversal Information Disclosure
+   auxiliary/scanner/ftp/colorado_ftp_traversal                2016-08-11       normal  ColoradoFTP Server 1.3 Build 8 Directory Traversal Information Disclosure
+   auxiliary/scanner/ftp/easy_file_sharing_ftp                 2017-03-07       normal  Easy File Sharing FTP Server 3.6 Directory Traversal
+   auxiliary/scanner/ftp/pcman_ftp_traversal                   2015-09-28       normal  PCMan FTP Server 2.0.7 Directory Traversal Information Disclosure
+   auxiliary/scanner/http/bavision_cam_login                                    normal  BAVision IP Camera Web Server Login
+   auxiliary/scanner/http/chromecast_webserver                                  normal  Chromecast Web Server Scanner
+   auxiliary/scanner/http/coldfusion_locale_traversal                           normal  ColdFusion Server Check
+   auxiliary/scanner/http/f5_bigip_virtual_server                               normal  F5 BigIP HTTP Virtual Server Scanner
+   auxiliary/scanner/http/frontpage_login                                       normal  FrontPage Server Extensions Anonymous Login Scanner
+   auxiliary/scanner/http/goahead_traversal                                     normal  Embedthis GoAhead Embedded Web Server Directory Traversal
+   auxiliary/scanner/http/netdecision_traversal                2012-03-07       normal  NetDecision NOCVision Server Directory Traversal
+   auxiliary/scanner/http/owa_iis_internal_ip                  2012-12-17       normal  Outlook Web App (OWA) / Client Access Server (CAS) IIS HTTP Internal IP Disclosure
+   auxiliary/scanner/http/simple_webserver_traversal           2013-01-03       normal  Simple Web Server 2.3-RC1 Directory Traversal
+   auxiliary/scanner/http/sockso_traversal                     2012-03-14       normal  Sockso Music Host Server 1.5 Directory Traversal
+   auxiliary/scanner/http/sybase_easerver_traversal            2011-05-25       normal  Sybase Easerver 6.3 Directory Traversal
+   auxiliary/scanner/http/yaws_traversal                       2011-11-25       normal  Yaws Web Server Directory Traversal
+   auxiliary/scanner/http/zabbix_login                                          normal  Zabbix Server Brute Force Utility
+   auxiliary/scanner/jenkins/jenkins_udp_broadcast_enum                         normal  Jenkins Server Broadcast Enumeration
+   auxiliary/scanner/kademlia/server_info                                       normal  Gather Kademlia Server Information
+   auxiliary/scanner/misc/easycafe_server_fileaccess                            normal  EasyCafe Server Remote File Access
+   auxiliary/scanner/misc/java_rmi_server                      2011-10-15       normal  Java RMI Server Insecure Endpoint Code Execution Scanner
+   auxiliary/scanner/mysql/mysql_version                                        normal  MySQL Server Version Enumeration
+   auxiliary/scanner/oracle/spy_sid                                             normal  Oracle Application Server Spy Servlet SID Enumeration
+   auxiliary/scanner/quake/server_info                                          normal  Gather Quake Server Information
+   auxiliary/scanner/redis/redis_server                                         normal  Redis Command Execute Scanner
+   auxiliary/scanner/scada/digi_realport_serialport_scan                        normal  Digi RealPort Serial Server Port Scanner
+   auxiliary/scanner/scada/digi_realport_version                                normal  Digi RealPort Serial Server Version
+   auxiliary/scanner/scada/indusoft_ntwebserver_fileaccess                      normal  Indusoft WebStudio NTWebServer Remote File Access
+   auxiliary/scanner/smb/smb_uninit_cred                                        normal  Samba _netr_ServerPasswordSet Uninitialized Credential State
+   auxiliary/scanner/ssh/cerberus_sftp_enumusers               2014-05-27       normal  Cerberus FTP Server SFTP Username Enumeration
+   auxiliary/scanner/ssl/openssl_ccs                           2014-06-05       normal  OpenSSL Server-Side ChangeCipherSpec Injection Scanner
+   auxiliary/scanner/steam/server_info                                          normal  Gather Steam Server Information
+   auxiliary/scanner/vmware/vmware_server_dir_trav                              normal  VMware Server Directory Traversal Vulnerability
+   auxiliary/server/android_browsable_msf_launch                                normal  Android Meterpreter Browsable Launcher
+   auxiliary/server/android_mercury_parseuri                                    normal  Android Mercury Browser Intent URI Scheme and Directory Traversal Vulnerability
+   auxiliary/server/browser_autopwn                                             normal  HTTP Client Automatic Exploiter
+   auxiliary/server/browser_autopwn2                           2015-07-05       normal  HTTP Client Automatic Exploiter 2 (Browser Autopwn)
+   auxiliary/server/capture/drda                                                normal  Authentication Capture: DRDA (DB2, Informix, Derby)
+   auxiliary/server/capture/ftp                                                 normal  Authentication Capture: FTP
+   auxiliary/server/capture/http                                                normal  Authentication Capture: HTTP
+   auxiliary/server/capture/http_basic                                          normal  HTTP Client Basic Authentication Credential Collector
+   auxiliary/server/capture/http_javascript_keylogger                           normal  Capture: HTTP JavaScript Keylogger
+   auxiliary/server/capture/http_ntlm                                           normal  HTTP Client MS Credential Catcher
+   auxiliary/server/capture/imap                                                normal  Authentication Capture: IMAP
+   auxiliary/server/capture/mssql                                               normal  Authentication Capture: MSSQL
+   auxiliary/server/capture/mysql                                               normal  Authentication Capture: MySQL
+   auxiliary/server/capture/pop3                                                normal  Authentication Capture: POP3
+   auxiliary/server/capture/postgresql                                          normal  Authentication Capture: PostgreSQL
+   auxiliary/server/capture/printjob_capture                                    normal  Printjob Capture Service
+   auxiliary/server/capture/sip                                                 normal  Authentication Capture: SIP
+   auxiliary/server/capture/smb                                                 normal  Authentication Capture: SMB
+   auxiliary/server/capture/smtp                                                normal  Authentication Capture: SMTP
+   auxiliary/server/capture/telnet                                              normal  Authentication Capture: Telnet
+   auxiliary/server/capture/vnc                                                 normal  Authentication Capture: VNC
+   auxiliary/server/dhclient_bash_env                          2014-09-24       normal  DHCP Client Bash Environment Variable Code Injection (Shellshock)
+   auxiliary/server/dhcp                                                        normal  DHCP Server
+   auxiliary/server/dns/spoofhelper                                             normal  DNS Spoofing Helper Service
+   auxiliary/server/fakedns                                                     normal  Fake DNS Service
+   auxiliary/server/ftp                                                         normal  FTP File Server
+   auxiliary/server/http_ntlmrelay                                              normal  HTTP Client MS Credential Relayer
+   auxiliary/server/icmp_exfil                                                  normal  ICMP Exfiltration Service
+   auxiliary/server/jsse_skiptls_mitm_proxy                    2015-01-20       normal  Java Secure Socket Extension (JSSE) SKIP-TLS MITM Proxy
+   auxiliary/server/local_hwbridge                                              normal  Hardware Bridge Server
+   auxiliary/server/ms15_134_mcl_leak                          2015-12-08       normal  MS15-134 Microsoft Windows Media Center MCL Information Disclosure
+   auxiliary/server/netbios_spoof_nat                          2016-06-14       normal  NetBIOS Response "BadTunnel" Brute Force Spoof (NAT Tunnel)
+   auxiliary/server/openssl_altchainsforgery_mitm_proxy        2015-07-09       normal  OpenSSL Alternative Chains Certificate Forgery MITM Proxy
+   auxiliary/server/openssl_heartbeat_client_memory            2014-04-07       normal  OpenSSL Heartbeat (Heartbleed) Client Memory Exposure
+   auxiliary/server/pxeexploit                                                  normal  PXE Boot Exploit Server
+   auxiliary/server/regsvr32_command_delivery_server                            normal  Regsvr32.exe (.sct) Command Delivery Server
+   auxiliary/server/socks4a                                                     normal  Socks4a Proxy Server
+   auxiliary/server/socks_unc                                                   normal  SOCKS Proxy UNC Path Redirection
+   auxiliary/server/tftp                                                        normal  TFTP File Server
+   auxiliary/server/webkit_xslt_dropper                                         normal  Cross Platform Webkit File Dropper
+   auxiliary/server/wget_symlink_file_write                    2014-10-27       normal  GNU Wget FTP Symlink Arbitrary Filesystem Access
+   auxiliary/server/wpad    

@@ -18,9 +18,9 @@ import threading
 
 
 ##################### CHANGE THIS TO YOUR OWN WORDLIST #####################################################
-password_wordlist = '/mnt/Data1/WordlistCollection/AWESOME_LIST'
-installation_dir = str(os.cwd())
-queue_folder = "{installation_dir}/queue_folder" # for the discovered.cap files queue.
+password_wordlist = '/mnt/Data1/WordlistCollection/AWESOME_LIST_2'
+installation_dir = "/root/ArmsCommander/logs/HashCat"
+queue_folder = "{0}/queue_folder".format(str(installation_dir)) # for the discovered.cap files queue.
 ##################### LEAVE EVERYTHING ELSE ALONE ##############################################################
 
 
@@ -237,7 +237,7 @@ def check_hashes_to_crack(pw_cracker_wordlist):
 
 def pw_cracker(pw_cracker_wordlist, converter_wordlist_cap_to_hccapx, converter, hccapx_dir, password_wordlist):
     # os.chdir("/root/ArmsCommander/passwordattacks/CocaineFactory")
-    crack_mode = 0
+    crack_mode = 2
 
 # if crack_mode is NOT ZERO, you must provide additional parameters!
 # and uncomment this bottom line
@@ -246,10 +246,10 @@ def pw_cracker(pw_cracker_wordlist, converter_wordlist_cap_to_hccapx, converter,
     ruleset = '/usr/share/hashcat/rules/dive.rule' # find your rulesets at...
 
     # crack_mode = 2 # pp_binary
-    pp_binary = "/usr/share/bin/pp64.bin"
+    pp_binary = "/usr/local/bin/pp64.bin"
     hash_type = 'slow' # hash type for WPA hashes
     # hash_type = 'fast' # for something easier to crack like NTLM
-    if hash_type = 'fast'
+    if hash_type == 'fast':
         ruleset = '/usr/share/hashcat/rules/dive.rule' # find your rulesets at...
     debug("All modules loaded")
 
@@ -280,17 +280,18 @@ def pw_cracker(pw_cracker_wordlist, converter_wordlist_cap_to_hccapx, converter,
 
                 if crack_mode == 0:
                     # Stanard, unamplified, non-piped password cracking. Straight-attack.
-                    cmd_String = "hashcat -a 0 -w 4 -m 2500 %s %s --session=test --force" % (hash_file, password_wordlist)
+                    cmd_String = "hashcat -a 0 -w 4 -m 2500 %s %s --session=test --force" % (str(hash_file), str(password_wordlist))
                 elif crack_mode == 1: # ruleset enhanced password cracking mode
+                    cmd_String = "hashcat -a 0 -w 4 -m 2500 %s %s --session=ruleset --force -r %s" % (str(hash_file), str(password_wordlist), str(ruleset))
                 elif crack_mode == 2: # prince processor attacks
-                    if hash_type == 'slow'
-                        cmd_String = "{pp_binary} < {password_wordlist} | hashcat -a 0 -w 4 -m 2500 --runtime=600 {hash_file}".format(
+                    if hash_type == 'slow':
+                        cmd_String = "{0} < {1} | hashcat -a 0 -w 4 -m 2500 --session=ruleset_pp --runtime=600 {2}".format(
                             str(pp_binary),
                             str(password_wordlist),
                             str(hash_file)
                         )
-                    elif hash_type == 'fast'
-                        cmd_String = "{pp_binary} < {password_wordlist} | hashcat -a 0 -w 4 -m 2500 --runtime=600 {hash_file} -r {ruleset}".format(
+                    elif hash_type == 'fast':
+                        cmd_String = "{0} < {1} | hashcat -a 0 -w 4 -m 2500 --session=pp --runtime=600 {2} -r {3}".format(
                             str(pp_binary),
                             str(password_wordlist),
                             str(hash_file),

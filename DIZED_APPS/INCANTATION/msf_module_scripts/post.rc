@@ -1,0 +1,31 @@
+  auxiliary/admin/http/kaseya_master_admin                2015-09-23       normal  Kaseya VSA Master Administrator Account Creation
+   auxiliary/dos/http/f5_bigip_apm_max_sessions                             normal  F5 BigIP Access Policy Manager Session Exhaustion Denial of Service
+   auxiliary/gather/browser_info                           2016-03-22       normal  HTTP Client Information Gather
+   auxiliary/gather/safari_file_url_navigation             2014-01-16       normal  Mac OS X Safari file:// Redirection Sandbox Escape
+   auxiliary/scanner/http/iis_internal_ip                                   normal  Microsoft IIS HTTP Internal IP Disclosure
+   auxiliary/scanner/http/lucky_punch                                       normal  HTTP Microsoft SQL Injection Table XSS Infection
+   auxiliary/scanner/http/smt_ipmi_url_redirect_traversal  2013-11-06       normal  Supermicro Onboard IPMI url_redirect.cgi Authenticated Directory Traversal
+   auxiliary/server/browser_autopwn2                       2015-07-05       normal  HTTP Client Automatic Exploiter 2 (Browser Autopwn)
+   auxiliary/server/fakedns                                                 normal  Fake DNS Service
+   auxiliary/server/socks_unc                                               normal  SOCKS Proxy UNC Path Redirection
+   auxiliary/spoof/nbns/nbns_response                                       normal  NetBIOS Name Service Spoofer
+
+
+   ----                                                ---------------  ----    -----------
+   auxiliary/admin/2wire/xslt_password_reset           2007-08-15       normal  2Wire Cross-Site Request Forgery Password Reset Vulnerability
+   auxiliary/admin/http/dlink_dir_300_600_exec_noauth  2013-02-04       normal  D-Link DIR-600 / DIR-300 Unauthenticated Remote Command Execution
+   auxiliary/dos/http/canon_wireless_printer           2013-06-18       normal  Canon Wireless Printer Denial Of Service
+   auxiliary/scanner/http/canon_wireless               2013-06-18       normal  Canon Printer Wireless Configuration Disclosure
+   auxiliary/scanner/http/chromecast_wifi                               normal  Chromecast Wifi Enumeration
+   auxiliary/scanner/http/tplink_traversal_noauth                       normal  TP-Link Wireless Lite N Access Point Directory Traversal Vulnerability
+   auxiliary/scanner/snmp/sbg6580_enum                                  normal  ARRIS / Motorola SBG6580 Cable Modem SNMP Enumeration Module
+
+   post/linux/gather/enum_network                              normal  Linux Gather Network Information
+   post/linux/gather/enum_psk                                  normal  Linux Gather 802-11-Wireless-Security Credentials
+   post/multi/gather/wlan_geolocate                            normal  Multiplatform WLAN Enumeration and Geolocation
+   post/osx/gather/enum_airport                                normal  OS X Gather Airport Wireless Preferences
+   post/windows/wlan/wlan_bss_list                             normal  Windows Gather Wireless BSS Info
+   post/windows/wlan/wlan_current_connection                   normal  Windows Gather Wireless Current Connection Info
+   post/windows/wlan/wlan_disconnect                           normal  Windows Disconnect Wireless Connection
+   post/windows/wlan/wlan_profile                              normal  Windows Gather Wireless Profile
+

@@ -1,0 +1,139 @@
+Its later discovered that using CLI injection is actually a waste of time .
+
+Because of Python 2.7, string unicode and or hex encode-decode issues.
+
+You see, values like integers and strings shouldnt be written directly into a file with python because they are represented by a bunch of symbols and digits. https://github.com/mstamy2/PyPDF2/issues/183
+
+And usually rewriting them back, means it ends up becoming garbled code. There are also strange bugs involving integers and how they become floating-point values after been rewritten intoa  new python module. https://stackoverflow.com/questions/1841565/valueerror-invalid-literal-for-int-with-base-10
+
+I was able to translate the error meassures from their native representation back to english by decoding it as a hex string. 
+
+
+Hpwever I could have avoided all of this altogether by just simply writing it in python in a editor, not following soemthing in the interpreter. The interpreter's equivalent is a command prompt line, the python file editing format is merely the same thing but switched around or heavily abbreviated
+
+
+
+###################################################
+
+import routersploit
+from routersploit import *
+import rsf
+who
+import matplotlib
+from matplotlib import *
+who
+get_data_path?
+get_data_path
+get_data_path(*args,**kwargs)
+get_data_path(args,kwargs)
+unpack_labeled_data
+unpack_labeled_data.func_defaults
+unpack_labeled_data.func_defaults
+get_data_path.func_defaults
+get_data_path.func_globals
+%history
+matplotlib.get_data_path.func_dict
+matplotlib.get_data_path.func_globals
+matplotlib.get_data_path.func_dict
+%matplotlib
+%matplotlib.help
+%matplotlib.
+%matplotlib
+help() magic
+help(magic)
+magic?
+matplotlib.backend_tools
+matplotlib.backend_tools.
+matplotlib.backend_tools.cbook
+matplotlib.backend_tools.cbook.align_iterators
+matplotlib.backend_tools.cbook.align_iterators()
+matplotlib.backend_tools.cbook.align_iterators(self)
+matplotlib.backend_tools.cbook.CallbackRegistry
+matplotlib.backend_tools.cbook.CallbackRegistry(all)
+matplotlib.backend_tools.cbook.CallbackRegistry.__init__()
+matplotlib.backend_tools.cbook.CallbackRegistry.__init__(weakrefs)
+matplotlib.backend_tools.cbook.CallbackRegistry.__init__()
+matplotlib.backend_tools.cbook.CallbackRegistry?
+callbacks = matplotlib.backend_tools.cbook.CallbackRegistry
+callbacks.process
+callbacks.process.im_self
+callbacks.process.im_func
+callbacks.process.im_func.func_defaults
+callbacks.connect
+callbacks.connect.im_self
+callbacks.connect.im_class
+callbacks.connect.im_class.__dict__
+%history
+callbacks.connect.im_class.connect.im_class.__getattribute__
+callbacks.connect.im_class.connect.im_class.__hash__
+callbacks.connect.im_class.connect.im_class.__init__
+callbacks.connect.im_class.connect.im_class.connect
+callbacks.connect.im_class.__doc__
+callbacks.connect.im_class.__dict
+callbacks.connect.im_class.__dict__
+callbacks.connect.im_class.__getstate__
+callbacks.connect.im_class.__module__
+callbacks.connect.im_class.__weakref__
+callbacks.connect.im_class.__weakref__ = self
+self = callbacks.connect.im_class.__weakref__
+self.__dict__
+self.%all
+%history
+history
+who
+from routersploit import  *
+ls
+whos
+import LockedIterator
+LockedIterator?
+import exploits
+from exploits import *
+dir()
+%matplotlib
+get_data_path.exploits
+get_data_path.func_dict
+exploits.BaseExploitget_data_path.func_dict
+exploits.BaseExploit.get_data_path.func_dict
+exploits.BaseExploit.options
+exploits.BaseExploit.options.setter
+whos
+printer.thread_output_stream
+printer.thread_output_stream.copy = print
+printer.thread_output_stream.copy = printme
+printer.thread_output_stream.copy = str(printme)
+str(printm)e = printer.thread_output_stream.copy
+str(printme) = printer.thread_output_stream.copy
+str(printme) = thread_output_stream.copy
+str(printme) = thread_output_stream.copy
+thread_output_stream.copy
+printer.thread_output_stream
+?
+dir()
+who
+%who
+%who%
+whos
+printer.absolute_import
+printer.absolute_import.mandatory
+printer.absolute_import.optional
+printer.print_function
+printer.print_function
+printer.PrinterThread
+printer.PrinterThread.start
+printer.PrinterThread.start()
+printer.PrinterThread.__init__
+printer.thread_output_stream
+printer.thread_output_stream.data
+printer.thread_output_stream.data.fromkeys
+printer.thread_output_stream.data.has_key
+printer.thread_output_stream.data.iterkeys
+printer.thread_output_stream.data.iterkeys
+printer.thread_output_stream.data.itervalues
+printer.thread_output_stream.data.viewkeys
+printer.thread_output_stream.data.viewvalues
+
+######## THESE WILL PRINT THE VALUES
+
+printer.thread_output_stream.data.viewvalues()
+printer.thread_output_stream.data.viewkeys()
+%history

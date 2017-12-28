@@ -1,0 +1,78 @@
+from __future__ import print_function
+from __future__ import absolute_import
+
+import threading
+from weakref import WeakKeyDictionary
+              ### In [4]: WeakKeyDictionary?
+              Init signature: WeakKeyDictionary(self, dict=None)
+              Docstring:
+              Mapping class that references keys weakly.
+
+              Entries in the dictionary will be discarded when there is no
+              longer a strong reference to the key. This can be used to
+              associate additional data with an object owned by other parts of
+              an application without adding attributes to those objects. This
+              can be especially useful with objects that override attribute
+              accesses.
+              File:           /usr/lib/python2.7/weakref.py
+              Type:           classobj
+
+
+              ##### this is a decoder basically.
+
+import os
+import threading
+import time
+import rsf
+import routersploit
+
+from itertools import chain
+from weakref import WeakKeyDictionary
+
+from routersploit.utils import print_status, NonStringIterable
+
+GLOBAL_OPTS = {}
+
+
+
+# it seems that it is as easy as importing weakref and letting weakref decode it.
+
+
+
+try:
+    import queue
+except ImportError:
+    import Queue as queue
+
+
+printer_queue = queue.Queue()
+thread_output_stream = WeakKeyDictionary()
+
+
+class PrinterThread(threading.Thread):
+    def __init__(self):
+        super(PrinterThread, self).__init__()
+        self.daemon = True
+### CONSOLE
+In [21]: PrinterThread().__init__
+Out[21]: <bound method PrinterThread.__init__ of <PrinterThread(Thread-862, initial daemon)>>
+
+In [22]:
+
+
+    def run(self):
+        while True:
+            content, sep, end, file_, thread = printer_queue.get()
+            print(*content, sep=sep, end=end, file=file_)
+            printer_queue.task_done()
+
+
+  In [22]: PrinterThread().run()
+
+  # Nothing happens. Still waiting for input?
+  #Needs to be run as a separate thread.
+
+  #Seems no code injection is required. Rather we create a subprocess that will manually interact with this module.
+# interaction is mandatory because this is the actual decoder that will turn the prompt into readable human language
+
+# make sure we make a new module/file instead to avoid any issues
